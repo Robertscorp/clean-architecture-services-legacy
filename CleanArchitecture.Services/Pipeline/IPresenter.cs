@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace CleanArchitecture.Services.Pipeline
 {
 
-    public interface IPresenter<TResponse, TValidationResult>
+    public interface IPresenter<TResponse, TValidationResult> where TValidationResult : IValidationResult
     {
 
         #region - - - - - - Methods - - - - - -

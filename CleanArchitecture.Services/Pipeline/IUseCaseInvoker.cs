@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using CleanArchitecture.Services.Entities;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Services.Pipeline
@@ -9,7 +10,9 @@ namespace CleanArchitecture.Services.Pipeline
 
         #region - - - - - - Methods - - - - - -
 
-        Task InvokeUseCaseAsync<TRequest, TResponse, TValidationResult>(TRequest request, IPresenter<TResponse, TValidationResult> presenter, CancellationToken cancellationToken) where TRequest : IUseCaseRequest<TResponse>;
+        Task InvokeUseCaseAsync<TRequest, TResponse, TValidationResult>(TRequest request, IPresenter<TResponse, TValidationResult> presenter, CancellationToken cancellationToken)
+            where TRequest : IUseCaseRequest<TResponse>
+            where TValidationResult : IValidationResult;
 
         #endregion Methods
 
