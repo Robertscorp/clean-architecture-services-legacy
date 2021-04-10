@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleanArchitecture.Services.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -59,6 +60,9 @@ namespace CleanArchitecture.Services.Enumerations
 
         public override int GetHashCode()
             => this.m_Value.GetHashCode();
+
+        public EntityID ToEntityID()
+            => (EnumerationEntityID)this;
 
         public override string ToString()
             => this.m_Name;
