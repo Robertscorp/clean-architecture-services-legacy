@@ -32,13 +32,13 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
                 .Setup(mock => mock.ValidateAsync(_Request, _CancellationToken))
                 .Returns(Task.FromResult(_MockValidationResult.Object));
 
-            var _MockUseCaseInteractor = new Mock<IUseCaseInteractor<IUseCaseRequest<object>, object, IValidationResult>>();
+            var _MockUseCaseInteractor = new Mock<IUseCaseInteractor<IPresenter<object, IValidationResult>, IUseCaseRequest<object>, object, IValidationResult>>();
             var _MockServiceProvider = new Mock<IServiceProvider>();
             _MockServiceProvider
                 .Setup(mock => mock.GetService(typeof(IBusinessRuleValidator<IUseCaseRequest<object>, IValidationResult>)))
                 .Returns(_MockBusinessRuleValidator.Object);
             _MockServiceProvider
-                .Setup(mock => mock.GetService(typeof(IUseCaseInteractor<IUseCaseRequest<object>, object, IValidationResult>)))
+                .Setup(mock => mock.GetService(typeof(IUseCaseInteractor<IPresenter<object, IValidationResult>, IUseCaseRequest<object>, object, IValidationResult>)))
                 .Returns(_MockUseCaseInteractor.Object);
 
             var _MockPresenter = new Mock<IPresenter<object, IValidationResult>>();
@@ -46,7 +46,7 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
             var _UseCaseInvoker = new UseCaseInvoker(_MockServiceProvider.Object);
 
             // Act
-            await _UseCaseInvoker.InvokeUseCaseAsync(_Request, _MockPresenter.Object, _CancellationToken);
+            await _UseCaseInvoker.InvokeUseCaseAsync<IPresenter<object, IValidationResult>, IUseCaseRequest<object>, object, IValidationResult>(_Request, _MockPresenter.Object, _CancellationToken);
 
             // Assert
             _MockBusinessRuleValidator.Verify(mock => mock.ValidateAsync(_Request, _CancellationToken), Times.Once);
@@ -75,13 +75,13 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
                 .Setup(mock => mock.ValidateAsync(_Request, _CancellationToken))
                 .Returns(Task.FromResult(_MockValidationResult.Object));
 
-            var _MockUseCaseInteractor = new Mock<IUseCaseInteractor<IUseCaseRequest<object>, object, IValidationResult>>();
+            var _MockUseCaseInteractor = new Mock<IUseCaseInteractor<IPresenter<object, IValidationResult>, IUseCaseRequest<object>, object, IValidationResult>>();
             var _MockServiceProvider = new Mock<IServiceProvider>();
             _MockServiceProvider
                 .Setup(mock => mock.GetService(typeof(IBusinessRuleValidator<IUseCaseRequest<object>, IValidationResult>)))
                 .Returns(_MockBusinessRuleValidator.Object);
             _MockServiceProvider
-                .Setup(mock => mock.GetService(typeof(IUseCaseInteractor<IUseCaseRequest<object>, object, IValidationResult>)))
+                .Setup(mock => mock.GetService(typeof(IUseCaseInteractor<IPresenter<object, IValidationResult>, IUseCaseRequest<object>, object, IValidationResult>)))
                 .Returns(_MockUseCaseInteractor.Object);
 
             var _MockPresenter = new Mock<IPresenter<object, IValidationResult>>();
@@ -89,7 +89,7 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
             var _UseCaseInvoker = new UseCaseInvoker(_MockServiceProvider.Object);
 
             // Act
-            await _UseCaseInvoker.InvokeUseCaseAsync(_Request, _MockPresenter.Object, _CancellationToken);
+            await _UseCaseInvoker.InvokeUseCaseAsync<IPresenter<object, IValidationResult>, IUseCaseRequest<object>, object, IValidationResult>(_Request, _MockPresenter.Object, _CancellationToken);
 
             // Assert
             _MockBusinessRuleValidator.Verify(mock => mock.ValidateAsync(_Request, _CancellationToken), Times.Once);
@@ -106,10 +106,10 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
         {
             // Arrange
             var _CancellationToken = new CancellationToken();
-            var _MockUseCaseInteractor = new Mock<IUseCaseInteractor<IUseCaseRequest<object>, object, IValidationResult>>();
+            var _MockUseCaseInteractor = new Mock<IUseCaseInteractor<IPresenter<object, IValidationResult>, IUseCaseRequest<object>, object, IValidationResult>>();
             var _MockServiceProvider = new Mock<IServiceProvider>();
             _MockServiceProvider
-                .Setup(mock => mock.GetService(typeof(IUseCaseInteractor<IUseCaseRequest<object>, object, IValidationResult>)))
+                .Setup(mock => mock.GetService(typeof(IUseCaseInteractor<IPresenter<object, IValidationResult>, IUseCaseRequest<object>, object, IValidationResult>)))
                 .Returns(_MockUseCaseInteractor.Object);
 
             var _MockPresenter = new Mock<IPresenter<object, IValidationResult>>();
@@ -118,7 +118,7 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
             var _UseCaseInvoker = new UseCaseInvoker(_MockServiceProvider.Object);
 
             // Act
-            await _UseCaseInvoker.InvokeUseCaseAsync(_Request, _MockPresenter.Object, _CancellationToken);
+            await _UseCaseInvoker.InvokeUseCaseAsync<IPresenter<object, IValidationResult>, IUseCaseRequest<object>, object, IValidationResult>(_Request, _MockPresenter.Object, _CancellationToken);
 
             // Assert
             _MockUseCaseInteractor.Verify(mock => mock.HandleAsync(_Request, _MockPresenter.Object, _CancellationToken), Times.Once);

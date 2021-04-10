@@ -10,7 +10,8 @@ namespace CleanArchitecture.Services.Pipeline
 
         #region - - - - - - Methods - - - - - -
 
-        Task InvokeUseCaseAsync<TRequest, TResponse, TValidationResult>(TRequest request, IPresenter<TResponse, TValidationResult> presenter, CancellationToken cancellationToken)
+        Task InvokeUseCaseAsync<TPresenter, TRequest, TResponse, TValidationResult>(TRequest request, TPresenter presenter, CancellationToken cancellationToken)
+            where TPresenter : IPresenter<TResponse, TValidationResult>
             where TRequest : IUseCaseRequest<TResponse>
             where TValidationResult : IValidationResult;
 

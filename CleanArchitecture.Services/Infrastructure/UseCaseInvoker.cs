@@ -25,7 +25,8 @@ namespace CleanArchitecture.Services.Infrastructure
 
         #region - - - - - - IUseCaseInvoker Implementation - - - - - -
 
-        public async Task InvokeUseCaseAsync<TRequest, TResponse, TValidationResult>(TRequest request, IPresenter<TResponse, TValidationResult> presenter, CancellationToken cancellationToken)
+        public async Task InvokeUseCaseAsync<TPresenter, TRequest, TResponse, TValidationResult>(TRequest request, TPresenter presenter, CancellationToken cancellationToken)
+            where TPresenter : IPresenter<TResponse, TValidationResult>
             where TRequest : IUseCaseRequest<TResponse>
             where TValidationResult : IValidationResult
         {
@@ -40,8 +41,8 @@ namespace CleanArchitecture.Services.Infrastructure
                 }
             }
 
-            var _UseCaseInteractor = this.m_ServiceProvider.GetService(typeof(IUseCaseInteractor<TRequest, TResponse, TValidationResult>));
-            await ((IUseCaseInteractor<TRequest, TResponse, TValidationResult>)_UseCaseInteractor).HandleAsync(request, presenter, cancellationToken);
+            var _UseCaseInteractor = this.m_ServiceProvider.GetService(typeof(IUseCaseInteractor<TPresenter, TRequest, TResponse, TValidationResult>));
+            await ((IUseCaseInteractor<TPresenter, TRequest, TResponse, TValidationResult>)_UseCaseInteractor).HandleAsync(request, presenter, cancellationToken);
         }
 
         #endregion IUseCaseInvoker Implementation

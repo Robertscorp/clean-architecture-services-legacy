@@ -1,9 +1,9 @@
-﻿using CleanArchitecture.Example.Domain.Exceptions;
+﻿using CleanArchitecture.Services.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CleanArchitecture.Example.Domain.Enumerations
+namespace CleanArchitecture.Services.Enumerations
 {
 
     public abstract class Enumeration : IComparable
@@ -60,6 +60,9 @@ namespace CleanArchitecture.Example.Domain.Enumerations
 
         public override int GetHashCode()
             => this.m_Value.GetHashCode();
+
+        public EntityID ToEntityID()
+            => (EnumerationEntityID)this;
 
         public override string ToString()
             => this.m_Name;
