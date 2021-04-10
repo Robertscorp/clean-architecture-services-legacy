@@ -146,7 +146,7 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
             _MockBusinessRuleValidator.Verify(mock => mock.ValidateAsync(_Request, _CancellationToken), Times.Once);
             _MockRequestValidator.Verify(mock => mock.ValidateAsync(_Request, _CancellationToken), Times.Once);
             _MockUseCaseInteractor.Verify(mock => mock.HandleAsync(_Request, _MockPresenter.Object, _CancellationToken), Times.Once);
-            _MockValidationResult.Verify(mock => mock.IsValid, Times.Once);
+            _MockValidationResult.Verify(mock => mock.IsValid);
 
             _MockBusinessRuleValidator.VerifyNoOtherCalls();
             _MockPresenter.VerifyNoOtherCalls();
