@@ -35,11 +35,11 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
             var _MockUseCaseInteractor = new Mock<IUseCaseInteractor<IUseCaseRequest<object>, object, IValidationResult>>();
             var _MockServiceProvider = new Mock<IServiceProvider>();
             _MockServiceProvider
-                .Setup(mock => mock.GetService(typeof(IUseCaseInteractor<IUseCaseRequest<object>, object, IValidationResult>)))
-                .Returns(_MockUseCaseInteractor.Object);
-            _MockServiceProvider
                 .Setup(mock => mock.GetService(typeof(IBusinessRuleValidator<IUseCaseRequest<object>, IValidationResult>)))
                 .Returns(_MockBusinessRuleValidator.Object);
+            _MockServiceProvider
+                .Setup(mock => mock.GetService(typeof(IUseCaseInteractor<IUseCaseRequest<object>, object, IValidationResult>)))
+                .Returns(_MockUseCaseInteractor.Object);
 
             var _MockPresenter = new Mock<IPresenter<object, IValidationResult>>();
 
@@ -78,11 +78,11 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
             var _MockUseCaseInteractor = new Mock<IUseCaseInteractor<IUseCaseRequest<object>, object, IValidationResult>>();
             var _MockServiceProvider = new Mock<IServiceProvider>();
             _MockServiceProvider
-                .Setup(mock => mock.GetService(typeof(IUseCaseInteractor<IUseCaseRequest<object>, object, IValidationResult>)))
-                .Returns(_MockUseCaseInteractor.Object);
-            _MockServiceProvider
                 .Setup(mock => mock.GetService(typeof(IBusinessRuleValidator<IUseCaseRequest<object>, IValidationResult>)))
                 .Returns(_MockBusinessRuleValidator.Object);
+            _MockServiceProvider
+                .Setup(mock => mock.GetService(typeof(IUseCaseInteractor<IUseCaseRequest<object>, object, IValidationResult>)))
+                .Returns(_MockUseCaseInteractor.Object);
 
             var _MockPresenter = new Mock<IPresenter<object, IValidationResult>>();
 
