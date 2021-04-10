@@ -11,7 +11,7 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Person.GetGe
         #region - - - - - - Profile Configuration Tests - - - - - -
 
         [Fact]
-        public void GetGenderProfile_ConfigurationValidation_Successful()
+        public void GetGendersProfile_ConfigurationValidation_Successful()
             => new MapperConfiguration(cfg => cfg.AddProfile<GetGendersProfile>()).AssertConfigurationIsValid();
 
         #endregion Profile Configuration Tests

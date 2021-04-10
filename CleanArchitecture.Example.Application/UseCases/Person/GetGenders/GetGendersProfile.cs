@@ -3,6 +3,7 @@ using CleanArchitecture.Example.Domain.Enumerations;
 
 namespace CleanArchitecture.Example.Application.UseCases.Person.GetGenders
 {
+
     public class GetGendersProfile : Profile
     {
 
@@ -18,4 +19,5 @@ namespace CleanArchitecture.Example.Application.UseCases.Person.GetGenders
         #endregion Constructors
 
     }
+
 }
