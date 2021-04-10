@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace CleanArchitecture.Services.Pipeline
 {
 
-    public interface IPresenter<TResponse, TValidationFailure>
+    public interface IPresenter<TResponse, TValidationResult>
     {
 
         #region - - - - - - Methods - - - - - -
@@ -14,7 +14,7 @@ namespace CleanArchitecture.Services.Pipeline
 
         Task PresentEntityNotFoundAsync(EntityRequest entityRequest, CancellationToken cancellationToken);
 
-        Task PresentValidationFailureAsync(TValidationFailure validationFailure, CancellationToken cancellationToken);
+        Task PresentValidationFailureAsync(TValidationResult validationResult, CancellationToken cancellationToken);
 
         #endregion Methods
 
