@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 namespace CleanArchitecture.Services.Pipeline
 {
 
-    public interface IUseCaseInteractor<TRequest, TResponse, TValidationFailure> where TRequest : IUseCaseRequest<TResponse>
+    public interface IUseCaseInteractor<TRequest, TResponse, TValidationResult> where TRequest : IUseCaseRequest<TResponse>
     {
 
         #region - - - - - - Methods - - - - - -
 
-        Task HandleAsync(TRequest request, IPresenter<TResponse, TValidationFailure> presenter, CancellationToken cancellationToken);
+        Task HandleAsync(TRequest request, IPresenter<TResponse, TValidationResult> presenter, CancellationToken cancellationToken);
 
         #endregion Methods
 

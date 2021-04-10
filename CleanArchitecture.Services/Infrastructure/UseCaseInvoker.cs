@@ -24,10 +24,10 @@ namespace CleanArchitecture.Services.Infrastructure
 
         #region - - - - - - IUseCaseInvoker Implementation - - - - - -
 
-        public Task InvokeUseCaseAsync<TRequest, TResponse, TValidationFailure>(TRequest request, IPresenter<TResponse, TValidationFailure> presenter, CancellationToken cancellationToken) where TRequest : IUseCaseRequest<TResponse>
+        public Task InvokeUseCaseAsync<TRequest, TResponse, TValidationResult>(TRequest request, IPresenter<TResponse, TValidationResult> presenter, CancellationToken cancellationToken) where TRequest : IUseCaseRequest<TResponse>
         {
-            var _UseCaseInteractor = this.m_ServiceProvider.GetService(typeof(IUseCaseInteractor<TRequest, TResponse, TValidationFailure>));
-            return ((IUseCaseInteractor<TRequest, TResponse, TValidationFailure>)_UseCaseInteractor).HandleAsync(request, presenter, cancellationToken);
+            var _UseCaseInteractor = this.m_ServiceProvider.GetService(typeof(IUseCaseInteractor<TRequest, TResponse, TValidationResult>));
+            return ((IUseCaseInteractor<TRequest, TResponse, TValidationResult>)_UseCaseInteractor).HandleAsync(request, presenter, cancellationToken);
         }
 
         #endregion IUseCaseInvoker Implementation
