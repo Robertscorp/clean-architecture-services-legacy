@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Services.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Example.Domain", "CleanArchitecture.Example.Domain\CleanArchitecture.Example.Domain.csproj", "{D670CFD7-1F8A-44AC-A48F-BCB73383AEA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Example.Application", "CleanArchitecture.Example.Application\CleanArchitecture.Example.Application.csproj", "{29A7014B-93DC-4BD8-886D-109178FDC955}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Example.Application", "CleanArchitecture.Example.Application\CleanArchitecture.Example.Application.csproj", "{29A7014B-93DC-4BD8-886D-109178FDC955}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Example.Application.Tests", "CleanArchitecture.Example.Application.Tests\CleanArchitecture.Example.Application.Tests.csproj", "{2A5045F3-97F6-4D94-81B2-E386FBC89044}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{29A7014B-93DC-4BD8-886D-109178FDC955}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29A7014B-93DC-4BD8-886D-109178FDC955}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29A7014B-93DC-4BD8-886D-109178FDC955}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A5045F3-97F6-4D94-81B2-E386FBC89044}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A5045F3-97F6-4D94-81B2-E386FBC89044}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A5045F3-97F6-4D94-81B2-E386FBC89044}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A5045F3-97F6-4D94-81B2-E386FBC89044}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
