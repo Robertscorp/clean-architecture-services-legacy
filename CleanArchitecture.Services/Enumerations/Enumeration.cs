@@ -1,9 +1,8 @@
-﻿using CleanArchitecture.Example.Domain.Exceptions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CleanArchitecture.Example.Domain.Enumerations
+namespace CleanArchitecture.Services.Enumerations
 {
 
     public abstract class Enumeration : IComparable

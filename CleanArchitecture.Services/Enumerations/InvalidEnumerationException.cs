@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CleanArchitecture.Example.Domain.Exceptions
+namespace CleanArchitecture.Services.Enumerations
 {
 
     public class InvalidEnumerationException : Exception

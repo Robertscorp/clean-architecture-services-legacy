@@ -1,4 +1,6 @@
-﻿namespace CleanArchitecture.Example.Domain.Enumerations
+﻿using CleanArchitecture.Services.Enumerations;
+
+namespace CleanArchitecture.Example.Domain.Enumerations
 {
 
     public class GenderEnumeration : Enumeration
