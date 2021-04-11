@@ -10,7 +10,7 @@ namespace CleanArchitecture.Example.Domain.Entities
 
         public string HashedPassword { get; set; }
 
-        public UserRoleEnumeration Role { get; set; }
+        public EmployeeRoleEnumeration Role { get; set; }
 
         public string UserName { get; set; }
 
