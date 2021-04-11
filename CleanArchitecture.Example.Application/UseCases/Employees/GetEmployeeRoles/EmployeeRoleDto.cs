@@ -1,14 +1,14 @@
 ﻿using CleanArchitecture.Services.Entities;
 
-namespace CleanArchitecture.Example.Application.UseCases.Person.GetGenders
+namespace CleanArchitecture.Example.Application.UseCases.Employees.GetEmployeeRoles
 {
 
-    public class GenderDto
+    public class EmployeeRoleDto
     {
 
         #region - - - - - - Properties - - - - - -
 
-        public EntityID GenderID { get; set; }
+        public EntityID EmployeeRoleID { get; set; }
 
         public string Name { get; set; }
 

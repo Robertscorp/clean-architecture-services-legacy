@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Example.Domain.Enumerations;
 
-namespace CleanArchitecture.Example.Application.UseCases.Person.GetGenders
+namespace CleanArchitecture.Example.Application.UseCases.People.GetGenders
 {
 
     public class GetGendersProfile : Profile

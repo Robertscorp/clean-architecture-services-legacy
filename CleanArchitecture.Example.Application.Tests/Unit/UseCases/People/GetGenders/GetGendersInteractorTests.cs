@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Example.Application.Services;
-using CleanArchitecture.Example.Application.UseCases.Person.GetGenders;
+using CleanArchitecture.Example.Application.UseCases.People.GetGenders;
 using CleanArchitecture.Example.Domain.Enumerations;
 using Moq;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Person.GetGenders
+namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.People.GetGenders
 {
 
     public class GetGendersInteractorTests
