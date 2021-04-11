@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CleanArchitecture.Example.Application.Services;
+using CleanArchitecture.Example.Application.Services.Pipeline;
 using CleanArchitecture.Example.Application.UseCases.People.GetGenders;
 using CleanArchitecture.Example.Domain.Enumerations;
 using Moq;
