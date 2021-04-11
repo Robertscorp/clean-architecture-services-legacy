@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Example.Application.UseCases.Person.GetGenders
+namespace CleanArchitecture.Example.Application.UseCases.People.GetGenders
 {
 
     public class GetGendersInteractor : IUseCaseInteractor<GetGendersRequest, IQueryable<GenderDto>>

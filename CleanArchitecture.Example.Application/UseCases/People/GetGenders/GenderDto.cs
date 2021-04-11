@@ -1,6 +1,6 @@
 ﻿using CleanArchitecture.Services.Entities;
 
-namespace CleanArchitecture.Example.Application.UseCases.Person.GetGenders
+namespace CleanArchitecture.Example.Application.UseCases.People.GetGenders
 {
 
     public class GenderDto
