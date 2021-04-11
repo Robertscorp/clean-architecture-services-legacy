@@ -46,6 +46,12 @@ namespace CleanArchitecture.Services.Enumerations
             return this.m_Value == _Enumeration.m_Value;
         }
 
+        public static TEnumeration FromEntityID<TEnumeration>(EntityID entityID) where TEnumeration : Enumeration
+            => entityID is EnumerationEntityID _EnumerationEntityID
+                ? (Enumeration)_EnumerationEntityID as TEnumeration
+                    ?? throw new InvalidEnumerationException(entityID, typeof(TEnumeration))
+                : throw new InvalidEnumerationException(entityID, typeof(TEnumeration));
+
         public static TEnumeration Get<TEnumeration>(int value) where TEnumeration : Enumeration
             => GetAll<TEnumeration>()
                 .SingleOrDefault(e => e.m_Value == value)
