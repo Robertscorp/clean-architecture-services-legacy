@@ -1,6 +1,4 @@
-﻿using CleanArchitecture.Example.Domain.Enumerations;
-
-namespace CleanArchitecture.Example.Domain.Entities
+﻿namespace CleanArchitecture.Example.Domain.Entities
 {
 
     public class User
@@ -9,8 +7,6 @@ namespace CleanArchitecture.Example.Domain.Entities
         #region - - - - - - Properties - - - - - -
 
         public string HashedPassword { get; set; }
-
-        public EmployeeRoleEnumeration Role { get; set; }
 
         public string UserName { get; set; }
 
