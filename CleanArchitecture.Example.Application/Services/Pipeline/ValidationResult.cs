@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Services.Entities;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace CleanArchitecture.Example.Application.Services.Pipeline
@@ -9,6 +10,10 @@ namespace CleanArchitecture.Example.Application.Services.Pipeline
     {
 
         #region - - - - - - Constructors - - - - - -
+
+        private ValidationResult() : base() { }
+
+        private ValidationResult(IEnumerable<FluentValidation.Results.ValidationFailure> failures) : base(failures) { }
 
         public ValidationResult(FluentValidation.Results.ValidationResult validationResult) : base(validationResult.Errors)
             => this.RuleSetsExecuted = validationResult.RuleSetsExecuted;
@@ -27,6 +32,12 @@ namespace CleanArchitecture.Example.Application.Services.Pipeline
 
         #region - - - - - - Methods - - - - - -
 
+        public static ValidationResult Failure(string failure)
+            => Failure(new[] { new FluentValidation.Results.ValidationFailure(null, failure) });
+
+        public static ValidationResult Failure(IEnumerable<FluentValidation.Results.ValidationFailure> failures)
+            => new ValidationResult(failures);
+
         private static void SetRuleSetsExecuted(ValidationResult validationResult, string[] value)
         {
             if (s_SetRuleSetsExecutedAction == null)
@@ -43,6 +54,9 @@ namespace CleanArchitecture.Example.Application.Services.Pipeline
             s_SetRuleSetsExecutedAction.Invoke(validationResult, value);
         }
         private static Action<FluentValidation.Results.ValidationResult, string[]> s_SetRuleSetsExecutedAction;
+
+        public static ValidationResult Success()
+            => new ValidationResult();
 
         #endregion Methods
 
