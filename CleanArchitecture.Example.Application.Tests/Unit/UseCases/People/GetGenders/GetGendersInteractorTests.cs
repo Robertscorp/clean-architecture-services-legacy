@@ -25,9 +25,9 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.People.GetGe
             var _GenderDtos = new List<GenderDto>();
 
             var _MockMapper = new Mock<IMapper>();
-            _MockMapper
-                .Setup(mock => mock.Map<List<GenderDto>>(It.IsAny<IEnumerable<GenderEnumeration>>()))
-                .Returns(_GenderDtos);
+            _ = _MockMapper
+                    .Setup(mock => mock.Map<List<GenderDto>>(It.IsAny<IEnumerable<GenderEnumeration>>()))
+                    .Returns(_GenderDtos);
 
             var _MockPresenter = new Mock<IPresenter<IQueryable<GenderDto>>>();
 
