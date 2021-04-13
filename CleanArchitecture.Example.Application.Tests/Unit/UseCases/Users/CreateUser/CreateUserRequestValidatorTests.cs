@@ -5,6 +5,7 @@ using Xunit;
 
 namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Users.CreateUser
 {
+
     public class CreateUserRequestValidatorTests
     {
 
@@ -93,4 +94,5 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Users.Create
         #endregion CreateUserRequestValidator Tests
 
     }
+
 }
