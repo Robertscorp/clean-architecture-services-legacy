@@ -1,6 +1,6 @@
 ﻿using CleanArchitecture.Services.Entities;
 
-namespace CleanArchitecture.Example.Application.UseCases.Users.CreateUser
+namespace CleanArchitecture.Example.Application.Dtos
 {
 
     public class UserDto

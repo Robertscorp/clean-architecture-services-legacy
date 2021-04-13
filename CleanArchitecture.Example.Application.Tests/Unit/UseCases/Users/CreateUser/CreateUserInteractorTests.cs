@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CleanArchitecture.Example.Application.Dtos;
 using CleanArchitecture.Example.Application.Services.Pipeline;
 using CleanArchitecture.Example.Application.UseCases.Users.CreateUser;
 using CleanArchitecture.Example.Domain.Entities;

@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Services.Entities;
+﻿using CleanArchitecture.Example.Application.Dtos;
+using CleanArchitecture.Services.Entities;
 using CleanArchitecture.Services.Pipeline;
 
 namespace CleanArchitecture.Example.Application.UseCases.Users.CreateUser
