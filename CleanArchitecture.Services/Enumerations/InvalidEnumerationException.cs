@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleanArchitecture.Services.Entities;
+using System;
 
 namespace CleanArchitecture.Services.Enumerations
 {
@@ -7,6 +8,8 @@ namespace CleanArchitecture.Services.Enumerations
     {
 
         #region - - - - - - Constructors - - - - - -
+
+        public InvalidEnumerationException(EntityID entityID, Type enumerationType) : base($"{nameof(entityID)} is not for {enumerationType.Name}.") { }
 
         public InvalidEnumerationException(int value, Type enumerationType) : base($"{value} is not valid for {enumerationType.Name}.") { }
 
