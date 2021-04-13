@@ -30,6 +30,17 @@ namespace CleanArchitecture.Services.Infrastructure
             where TRequest : IUseCaseRequest<TResponse>
             where TValidationResult : IValidationResult
         {
+            var _RequestValidator = (IRequestValidator<TRequest, TValidationResult>)this.m_ServiceProvider.GetService(typeof(IRequestValidator<TRequest, TValidationResult>));
+            if (_RequestValidator != null)
+            {
+                var _ValidationResult = await _RequestValidator.ValidateAsync(request, cancellationToken);
+                if (!_ValidationResult.IsValid)
+                {
+                    await presenter.PresentValidationFailureAsync(_ValidationResult, cancellationToken);
+                    return;
+                }
+            }
+
             var _BusinessRuleValidator = (IBusinessRuleValidator<TRequest, TValidationResult>)this.m_ServiceProvider.GetService(typeof(IBusinessRuleValidator<TRequest, TValidationResult>));
             if (_BusinessRuleValidator != null)
             {
