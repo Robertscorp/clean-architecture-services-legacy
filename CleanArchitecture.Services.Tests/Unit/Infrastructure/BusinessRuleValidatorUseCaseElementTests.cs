@@ -23,6 +23,7 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
             var _CancellationToken = new CancellationToken();
             var _Request = new Mock<IUseCaseRequest<object>>().Object;
 
+            var _MockPresenter = new Mock<IPresenter<object, IValidationResult>>();
             var _MockValidationResult = new Mock<IValidationResult>();
             _ = _MockValidationResult
                     .Setup(mock => mock.IsValid)
@@ -37,8 +38,6 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
             _ = _MockServiceProvider
                     .Setup(mock => mock.GetService(typeof(IBusinessRuleValidator<IUseCaseRequest<object>, IValidationResult>)))
                     .Returns(_MockBusinessRuleValidator.Object);
-
-            var _MockPresenter = new Mock<IPresenter<object, IValidationResult>>();
 
             var _Element = new BusinessRuleValidatorUseCaseElement<object, IValidationResult>(_MockServiceProvider.Object);
 
@@ -63,6 +62,7 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
             var _CancellationToken = new CancellationToken();
             var _Request = new Mock<IUseCaseRequest<object>>().Object;
 
+            var _MockPresenter = new Mock<IPresenter<object, IValidationResult>>();
             var _MockValidationResult = new Mock<IValidationResult>();
             _ = _MockValidationResult
                     .Setup(mock => mock.IsValid)
@@ -77,8 +77,6 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
             _ = _MockServiceProvider
                     .Setup(mock => mock.GetService(typeof(IBusinessRuleValidator<IUseCaseRequest<object>, IValidationResult>)))
                     .Returns(_MockBusinessRuleValidator.Object);
-
-            var _MockPresenter = new Mock<IPresenter<object, IValidationResult>>();
 
             var _Element = new BusinessRuleValidatorUseCaseElement<object, IValidationResult>(_MockServiceProvider.Object);
 
