@@ -23,13 +23,13 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
             var _CancellationToken = new CancellationToken();
             var _Request = new Mock<IUseCaseRequest<object>>().Object;
 
+            var _MockPresenter = new Mock<IPresenter<object, IValidationResult>>();
             var _MockUseCaseInteractor = new Mock<IUseCaseInteractor<IPresenter<object, IValidationResult>, IUseCaseRequest<object>, object, IValidationResult>>();
+
             var _MockServiceProvider = new Mock<IServiceProvider>();
             _ = _MockServiceProvider
                     .Setup(mock => mock.GetService(typeof(IUseCaseInteractor<IPresenter<object, IValidationResult>, IUseCaseRequest<object>, object, IValidationResult>)))
                     .Returns(_MockUseCaseInteractor.Object);
-
-            var _MockPresenter = new Mock<IPresenter<object, IValidationResult>>();
 
             var _Element = new InteractorUseCaseElement<object, IValidationResult>(_MockServiceProvider.Object);
 
