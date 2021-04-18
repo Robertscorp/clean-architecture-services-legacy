@@ -21,7 +21,7 @@ namespace CleanArchitecture.Services.Infrastructure
         public BusinessRuleValidatorUseCaseElement(IServiceProvider serviceProvider)
             => this.m_ServiceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
 
-        #endregion Constructors088.54
+        #endregion Constructors
 
         #region - - - - - - IUseCaseElement Implementation - - - - - -
 
