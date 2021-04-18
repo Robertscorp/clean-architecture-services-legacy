@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Services.Entities;
+using CleanArchitecture.Services.Internal;
 using CleanArchitecture.Services.Pipeline;
 using System;
 using System.Threading;
@@ -25,35 +26,17 @@ namespace CleanArchitecture.Services.Infrastructure
 
         #region - - - - - - IUseCaseInvoker Implementation - - - - - -
 
-        public async Task InvokeUseCaseAsync<TPresenter, TRequest, TResponse, TValidationResult>(TRequest request, TPresenter presenter, CancellationToken cancellationToken)
-            where TPresenter : IPresenter<TResponse, TValidationResult>
-            where TRequest : IUseCaseRequest<TResponse>
+        public Task InvokeUseCaseAsync<TResponse, TValidationResult>(IUseCaseRequest<TResponse> request, IPresenter<TResponse, TValidationResult> presenter, CancellationToken cancellationToken)
             where TValidationResult : IValidationResult
         {
-            var _RequestValidator = (IRequestValidator<TRequest, TValidationResult>)this.m_ServiceProvider.GetService(typeof(IRequestValidator<TRequest, TValidationResult>));
-            if (_RequestValidator != null)
-            {
-                var _ValidationResult = await _RequestValidator.ValidateAsync(request, cancellationToken);
-                if (!_ValidationResult.IsValid)
-                {
-                    await presenter.PresentValidationFailureAsync(_ValidationResult, cancellationToken);
-                    return;
-                }
-            }
+            var _InternalPresentationInterfaceTypeResolverType = typeof(InternalPresenterInterfaceTypeResolver<,>).MakeGenericType(typeof(TResponse), typeof(TValidationResult));
+            var _InternalPresentationInterfaceTypeResolver = (InternalPresenterInterfaceTypeResolver)Activator.CreateInstance(_InternalPresentationInterfaceTypeResolverType);
 
-            var _BusinessRuleValidator = (IBusinessRuleValidator<TRequest, TValidationResult>)this.m_ServiceProvider.GetService(typeof(IBusinessRuleValidator<TRequest, TValidationResult>));
-            if (_BusinessRuleValidator != null)
-            {
-                var _ValidationResult = await _BusinessRuleValidator.ValidateAsync(request, cancellationToken);
-                if (!_ValidationResult.IsValid)
-                {
-                    await presenter.PresentValidationFailureAsync(_ValidationResult, cancellationToken);
-                    return;
-                }
-            }
+            var _PresentationInterfaceType = _InternalPresentationInterfaceTypeResolver.GetPresenterInterfaceType(presenter.GetType());
+            var _InternalUseCaseInvokerType = typeof(InternalUseCaseInvoker<,,,>).MakeGenericType(_PresentationInterfaceType, request.GetType(), typeof(TResponse), typeof(TValidationResult));
+            var _InternalUseCaseInvoker = (InternalUseCaseInvoker)Activator.CreateInstance(_InternalUseCaseInvokerType, presenter, request, this.m_ServiceProvider);
 
-            var _UseCaseInteractor = this.m_ServiceProvider.GetService(typeof(IUseCaseInteractor<TPresenter, TRequest, TResponse, TValidationResult>));
-            await ((IUseCaseInteractor<TPresenter, TRequest, TResponse, TValidationResult>)_UseCaseInteractor).HandleAsync(request, presenter, cancellationToken);
+            return _InternalUseCaseInvoker.InvokeUseCaseAsync(cancellationToken);
         }
 
         #endregion IUseCaseInvoker Implementation
