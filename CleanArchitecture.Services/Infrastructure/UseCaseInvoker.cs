@@ -39,8 +39,6 @@ namespace CleanArchitecture.Services.Infrastructure
             return _InternalUseCaseInvoker.InvokeUseCaseAsync(cancellationToken);
         }
 
-
-
         #endregion IUseCaseInvoker Implementation
 
     }
