@@ -89,4 +89,5 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Customers.Cr
         #endregion CreateCustomerRequestValidator Tests
 
     }
+
 }
