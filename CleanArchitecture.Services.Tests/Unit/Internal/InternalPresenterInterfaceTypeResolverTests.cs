@@ -41,14 +41,14 @@ namespace CleanArchitecture.Services.Tests.Unit.Internal
         public class BasicInterfacePresenter : IPresenter<object, IValidationResult>
         {
             public Task PresentAsync(object response, CancellationToken cancellationToken) => throw new NotImplementedException();
-            public Task PresentEntityNotFoundAsync(EntityRequest entityRequest, CancellationToken cancellationToken) => throw new NotImplementedException();
+            public Task PresentEntityNotFoundAsync(EntityID entityID, CancellationToken cancellationToken) => throw new NotImplementedException();
             public Task PresentValidationFailureAsync(IValidationResult validationResult, CancellationToken cancellationToken) => throw new NotImplementedException();
         }
 
         public abstract class BasicInterfaceAbstractPresenter : IPresenter<object, IValidationResult>
         {
             public Task PresentAsync(object response, CancellationToken cancellationToken) => throw new NotImplementedException();
-            public Task PresentEntityNotFoundAsync(EntityRequest entityRequest, CancellationToken cancellationToken) => throw new NotImplementedException();
+            public Task PresentEntityNotFoundAsync(EntityID entityID, CancellationToken cancellationToken) => throw new NotImplementedException();
             public Task PresentValidationFailureAsync(IValidationResult validationResult, CancellationToken cancellationToken) => throw new NotImplementedException();
         }
 
@@ -59,14 +59,14 @@ namespace CleanArchitecture.Services.Tests.Unit.Internal
         public class DerivedInterfacePresenter : IDerivedPresenter
         {
             public Task PresentAsync(object response, CancellationToken cancellationToken) => throw new NotImplementedException();
-            public Task PresentEntityNotFoundAsync(EntityRequest entityRequest, CancellationToken cancellationToken) => throw new NotImplementedException();
+            public Task PresentEntityNotFoundAsync(EntityID entityID, CancellationToken cancellationToken) => throw new NotImplementedException();
             public Task PresentValidationFailureAsync(IValidationResult validationResult, CancellationToken cancellationToken) => throw new NotImplementedException();
         }
 
         public abstract class DerivedInterfaceAbstractPresenter : IDerivedPresenter
         {
             public Task PresentAsync(object response, CancellationToken cancellationToken) => throw new NotImplementedException();
-            public Task PresentEntityNotFoundAsync(EntityRequest entityRequest, CancellationToken cancellationToken) => throw new NotImplementedException();
+            public Task PresentEntityNotFoundAsync(EntityID entityID, CancellationToken cancellationToken) => throw new NotImplementedException();
             public Task PresentValidationFailureAsync(IValidationResult validationResult, CancellationToken cancellationToken) => throw new NotImplementedException();
         }
 

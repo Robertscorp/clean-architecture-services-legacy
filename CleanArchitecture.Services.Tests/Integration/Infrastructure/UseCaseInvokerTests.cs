@@ -58,7 +58,7 @@ namespace CleanArchitecture.Services.Tests.Integration.Infrastructure
         public abstract class DerivedInterfaceAbstractPresenter : IDerivedPresenter
         {
             public Task PresentAsync(object response, CancellationToken cancellationToken) => throw new NotImplementedException();
-            public Task PresentEntityNotFoundAsync(EntityRequest entityRequest, CancellationToken cancellationToken) => throw new NotImplementedException();
+            public Task PresentEntityNotFoundAsync(EntityID entityID, CancellationToken cancellationToken) => throw new NotImplementedException();
             public Task PresentValidationFailureAsync(IValidationResult validationResult, CancellationToken cancellationToken) => throw new NotImplementedException();
         }
 
