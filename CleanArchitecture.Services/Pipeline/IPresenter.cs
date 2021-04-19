@@ -12,7 +12,7 @@ namespace CleanArchitecture.Services.Pipeline
 
         Task PresentAsync(TResponse response, CancellationToken cancellationToken);
 
-        Task PresentEntityNotFoundAsync(EntityRequest entityRequest, CancellationToken cancellationToken);
+        Task PresentEntityNotFoundAsync(EntityID entityID, CancellationToken cancellationToken);
 
         Task PresentValidationFailureAsync(TValidationResult validationResult, CancellationToken cancellationToken);
 
