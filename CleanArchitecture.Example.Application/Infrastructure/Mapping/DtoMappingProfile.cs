@@ -12,7 +12,16 @@ namespace CleanArchitecture.Example.Application.Infrastructure.Mapping
         #region - - - - - - Constructors - - - - - -
 
         public DtoMappingProfile()
-            => _ = this.CreateMap<Employee, UserDto>()
+        {
+            _ = this.CreateMap<Customer, CustomerDto>()
+                    .ForMember(dest => dest.CustomerID, opts => opts.MapFromEntity(src => src))
+                    .ForMember(dest => dest.EmailAddress, opts => opts.MapFrom(src => src.CustomerDetails.FirstName))
+                    .ForMember(dest => dest.FirstName, opts => opts.MapFrom(src => src.CustomerDetails.FirstName))
+                    .ForMember(dest => dest.GenderID, opts => opts.MapFromEnumeration(src => src.CustomerDetails.Gender))
+                    .ForMember(dest => dest.LastName, opts => opts.MapFrom(src => src.CustomerDetails.LastName))
+                    .ForMember(dest => dest.MobileNumber, opts => opts.MapFrom(src => src.CustomerDetails.FirstName));
+
+            _ = this.CreateMap<Employee, UserDto>()
                     .ForMember(dest => dest.EmployeeID, opts => opts.MapFromEntity(src => src))
                     .ForMember(dest => dest.EmployeeRoleID, opts => opts.MapFromEnumeration(src => src.Role))
                     .ForMember(dest => dest.FirstName, opts => opts.MapFrom(src => src.EmployeeDetails.FirstName))
@@ -22,6 +31,7 @@ namespace CleanArchitecture.Example.Application.Infrastructure.Mapping
                     .ForMember(dest => dest.PersonID, opts => opts.MapFromEntity(src => src.EmployeeDetails))
                     .ForMember(dest => dest.UserID, opts => opts.MapFromEntity(src => src.User))
                     .ForMember(dest => dest.UserName, opts => opts.MapFrom(src => src.User.UserName));
+        }
 
         #endregion Constructors
 
