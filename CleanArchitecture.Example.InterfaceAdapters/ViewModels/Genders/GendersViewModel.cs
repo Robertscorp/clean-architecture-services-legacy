@@ -36,7 +36,12 @@ namespace CleanArchitecture.Example.InterfaceAdapters.ViewModels.Genders
 
         #region - - - - - - Properties - - - - - -
 
+        // Properties
+
         public Property<ExistingGenderViewModel> SelectedGender { get; } = new Property<ExistingGenderViewModel>();
+
+
+        // View Models
 
         public List<ExistingGenderViewModel> Genders { get; private set; }
 
