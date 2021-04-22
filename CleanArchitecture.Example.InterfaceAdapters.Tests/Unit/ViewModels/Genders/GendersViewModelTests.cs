@@ -20,21 +20,33 @@ namespace CleanArchitecture.Example.InterfaceAdapters.Tests.Unit.ViewModels.Gend
 
         #region - - - - - - Fields - - - - - -
 
-        private CancellationToken m_CancellationToken = new CancellationToken();
+        private readonly CancellationToken m_CancellationToken = new CancellationToken();
+        private readonly GendersViewModel m_ViewModel;
 
-        private Mock<IMapper> m_MockMapper = new Mock<IMapper>();
-        private Mock<IUseCaseInvoker> m_MockUseCaseInvoker = new Mock<IUseCaseInvoker>();
+        private readonly Mock<IMapper> m_MockMapper = new Mock<IMapper>();
+        private readonly Mock<IUseCaseInvoker> m_MockUseCaseInvoker = new Mock<IUseCaseInvoker>();
 
         #endregion Fields
 
         #region - - - - - - Constructors - - - - - -
 
         public GendersViewModelTests()
-            => _ = this.m_MockMapper
+        {
+            this.m_ViewModel = new GendersViewModel(this.m_MockMapper.Object, this.m_MockUseCaseInvoker.Object);
+
+            _ = this.m_MockMapper
                     .Setup(mock => mock.ConfigurationProvider)
                     .Returns(new MapperConfiguration(opts => _ = opts.CreateMap<GenderDto, ExistingGenderViewModel>()));
+        }
 
         #endregion Constructors
+
+        #region - - - - - - Methods - - - - - -
+
+        private void VerifyNoOtherCalls()
+            => this.m_MockUseCaseInvoker.VerifyNoOtherCalls();
+
+        #endregion Methods
 
         #region - - - - - - InitialiseAsync Tests - - - - - -
 
@@ -42,16 +54,13 @@ namespace CleanArchitecture.Example.InterfaceAdapters.Tests.Unit.ViewModels.Gend
         public async Task InitialiseAsync_AnyInitialisation_InvokesGetGendersUseCase()
         {
             // Arrange
-            var _GendersViewModel = new GendersViewModel(this.m_MockMapper.Object, this.m_MockUseCaseInvoker.Object);
 
             // Act
-            await _GendersViewModel.InitialiseAsync(this.m_CancellationToken);
+            await this.m_ViewModel.InitialiseAsync(this.m_CancellationToken);
 
             // Assert
-            this.m_MockUseCaseInvoker.Verify(mock => mock.InvokeUseCaseAsync(It.IsAny<GetGendersRequest>(), _GendersViewModel, this.m_CancellationToken));
-
-            this.m_MockMapper.VerifyNoOtherCalls();
-            this.m_MockUseCaseInvoker.VerifyNoOtherCalls();
+            this.m_MockUseCaseInvoker.Verify(mock => mock.InvokeUseCaseAsync(It.IsAny<GetGendersRequest>(), this.m_ViewModel, this.m_CancellationToken));
+            this.VerifyNoOtherCalls();
         }
 
         #endregion InitialiseAsync Tests
@@ -63,20 +72,14 @@ namespace CleanArchitecture.Example.InterfaceAdapters.Tests.Unit.ViewModels.Gend
         {
             // Arrange
             var _GenderDtos = new[] { new GenderDto { Name = "Male" } }.AsQueryable();
-
-            var _GendersViewModel = new GendersViewModel(this.m_MockMapper.Object, this.m_MockUseCaseInvoker.Object);
-
             var _Expected = new[] { new ExistingGenderViewModel(null, "Male") };
 
             // Act
-            await _GendersViewModel.PresentAsync(_GenderDtos, this.m_CancellationToken);
+            await this.m_ViewModel.PresentAsync(_GenderDtos, this.m_CancellationToken);
 
             // Assert
-            _ = _GendersViewModel.Genders.Should().BeEquivalentTo(_Expected);
-
-            this.m_MockMapper.Verify(mock => mock.ConfigurationProvider);
-            this.m_MockMapper.VerifyNoOtherCalls();
-            this.m_MockUseCaseInvoker.VerifyNoOtherCalls();
+            _ = this.m_ViewModel.Genders.Should().BeEquivalentTo(_Expected);
+            this.VerifyNoOtherCalls();
         }
 
         #endregion PresentAsync Tests
@@ -85,19 +88,7 @@ namespace CleanArchitecture.Example.InterfaceAdapters.Tests.Unit.ViewModels.Gend
 
         [Fact]
         public async Task PresentEntityNotFoundAsync_NotImplemented_ThrowsNotImplementedException()
-        {
-            // Arrange
-            var _GendersViewModel = new GendersViewModel(this.m_MockMapper.Object, this.m_MockUseCaseInvoker.Object);
-
-            // Act
-            var _Exception = await Record.ExceptionAsync(() => _GendersViewModel.PresentEntityNotFoundAsync(new EntityID(), this.m_CancellationToken));
-
-            // Assert
-            _ = _Exception.Should().BeOfType<NotImplementedException>();
-
-            this.m_MockMapper.VerifyNoOtherCalls();
-            this.m_MockUseCaseInvoker.VerifyNoOtherCalls();
-        }
+            => _ = (await Record.ExceptionAsync(() => this.m_ViewModel.PresentEntityNotFoundAsync(new EntityID(), this.m_CancellationToken))).Should().BeOfType<NotImplementedException>();
 
         #endregion PresentEntityNotFoundAsync Tests
 
@@ -105,19 +96,7 @@ namespace CleanArchitecture.Example.InterfaceAdapters.Tests.Unit.ViewModels.Gend
 
         [Fact]
         public async Task PresentValidationFailureAsync_NotImplemented_ThrowsNotImplementedException()
-        {
-            // Arrange
-            var _GendersViewModel = new GendersViewModel(this.m_MockMapper.Object, this.m_MockUseCaseInvoker.Object);
-
-            // Act
-            var _Exception = await Record.ExceptionAsync(() => _GendersViewModel.PresentValidationFailureAsync(ValidationResult.Success(), this.m_CancellationToken));
-
-            // Assert
-            _ = _Exception.Should().BeOfType<NotImplementedException>();
-
-            this.m_MockMapper.VerifyNoOtherCalls();
-            this.m_MockUseCaseInvoker.VerifyNoOtherCalls();
-        }
+            => _ = (await Record.ExceptionAsync(() => this.m_ViewModel.PresentValidationFailureAsync(ValidationResult.Success(), this.m_CancellationToken))).Should().BeOfType<NotImplementedException>();
 
         #endregion PresentValidationFailureAsync Tests
 
