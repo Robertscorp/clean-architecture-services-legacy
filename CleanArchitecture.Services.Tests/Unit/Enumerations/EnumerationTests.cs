@@ -12,29 +12,29 @@ namespace CleanArchitecture.Services.Tests.Unit.Enumerations
         #region - - - - - - FromEntityID Tests - - - - - -
 
         [Fact]
-        public void FromEntityID_EntityIDIsNotAnEnumerationEntityID_ThrowsInvalidEnumerationException()
+        public void FromEntityID_EntityIDIsNotAnEnumerationEntityID_ReturnsNull()
         {
             // Arrange
             var _EntityID = new EntityID();
 
             // Act
-            var _Exception = Record.Exception(() => Enumeration.FromEntityID<ShapeEnumeration>(_EntityID));
+            var _Actual = Enumeration.FromEntityID<ShapeEnumeration>(_EntityID);
 
             // Assert
-            _Exception.Should().BeOfType<InvalidEnumerationException>();
+            _ = _Actual.Should().BeNull();
         }
 
         [Fact]
-        public void FromEntityID_EntityIDIsForADifferentEnumeration_ThrowsInvalidEnumerationException()
+        public void FromEntityID_EntityIDIsForADifferentEnumeration_ReturnsNull()
         {
             // Arrange
             var _EntityID = DayEnumeration.Monday.ToEntityID();
 
             // Act
-            var _Exception = Record.Exception(() => Enumeration.FromEntityID<ShapeEnumeration>(_EntityID));
+            var _Actual = Enumeration.FromEntityID<ShapeEnumeration>(_EntityID);
 
             // Assert
-            _Exception.Should().BeOfType<InvalidEnumerationException>();
+            _ = _Actual.Should().BeNull();
         }
 
         [Fact]
@@ -47,7 +47,7 @@ namespace CleanArchitecture.Services.Tests.Unit.Enumerations
             var _Actual = Enumeration.FromEntityID<ShapeEnumeration>(_EntityID);
 
             // Assert
-            _Actual.Should().Be(ShapeEnumeration.Circle);
+            _ = _Actual.Should().Be(ShapeEnumeration.Circle);
         }
 
         #endregion FromEntityID Tests

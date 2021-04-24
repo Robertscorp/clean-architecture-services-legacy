@@ -47,15 +47,10 @@ namespace CleanArchitecture.Services.Enumerations
         }
 
         public static TEnumeration FromEntityID<TEnumeration>(EntityID entityID) where TEnumeration : Enumeration
-            => entityID is EnumerationEntityID _EnumerationEntityID
-                ? (Enumeration)_EnumerationEntityID as TEnumeration
-                    ?? throw new InvalidEnumerationException(entityID, typeof(TEnumeration))
-                : throw new InvalidEnumerationException(entityID, typeof(TEnumeration));
+            => (Enumeration)(entityID as EnumerationEntityID) as TEnumeration;
 
         public static TEnumeration Get<TEnumeration>(int value) where TEnumeration : Enumeration
-            => GetAll<TEnumeration>()
-                .SingleOrDefault(e => e.m_Value == value)
-                    ?? throw new InvalidEnumerationException(value, typeof(TEnumeration));
+            => GetAll<TEnumeration>().SingleOrDefault(e => e.m_Value == value);
 
         public static IEnumerable<TEnumeration> GetAll<TEnumeration>() where TEnumeration : Enumeration
             => typeof(TEnumeration)
