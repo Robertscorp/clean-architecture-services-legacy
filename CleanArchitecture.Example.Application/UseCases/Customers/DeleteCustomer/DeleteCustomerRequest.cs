@@ -2,7 +2,7 @@
 using CleanArchitecture.Services.Entities;
 using CleanArchitecture.Services.Pipeline;
 
-namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Customers.DeleteCustomer
+namespace CleanArchitecture.Example.Application.UseCases.Customers.DeleteCustomer
 {
 
     public class DeleteCustomerRequest : IUseCaseRequest<CustomerDto>
