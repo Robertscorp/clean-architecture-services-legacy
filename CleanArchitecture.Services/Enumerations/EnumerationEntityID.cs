@@ -24,7 +24,7 @@ namespace CleanArchitecture.Services.Enumerations
             => new EnumerationEntityID { m_Enumeration = enumeration };
 
         public static implicit operator Enumeration(EnumerationEntityID entityID)
-            => entityID.m_Enumeration;
+            => entityID?.m_Enumeration;
 
         #endregion Methods
 
