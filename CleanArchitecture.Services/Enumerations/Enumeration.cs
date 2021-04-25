@@ -59,6 +59,9 @@ namespace CleanArchitecture.Services.Enumerations
                 .Select(f => f.GetValue(null))
                 .Cast<TEnumeration>();
 
+        public int GetValue()
+            => this.m_Value;
+
         public override int GetHashCode()
             => this.m_Value.GetHashCode();
 
