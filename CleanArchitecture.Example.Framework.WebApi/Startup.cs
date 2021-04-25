@@ -40,7 +40,7 @@ namespace CleanArchitecture.Example.Framework.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             _ = services.AddAutoMapper(typeof(IPresenter<>).Assembly);
-            _ = services.AddControllers();
+            _ = services.AddControllers().AddJsonOptions(opts => opts.JsonSerializerOptions.Converters.Add(new EntityIDConverter()));
             _ = services.AddScoped(typeof(IUseCaseElement<,>), typeof(RequestValidatorUseCaseElement<,>));
             _ = services.AddScoped(typeof(IUseCaseElement<,>), typeof(BusinessRuleValidatorUseCaseElement<,>));
             _ = services.AddScoped(typeof(IUseCaseElement<,>), typeof(InteractorUseCaseElement<,>));
