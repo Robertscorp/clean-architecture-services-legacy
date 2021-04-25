@@ -14,7 +14,6 @@ namespace CleanArchitecture.Example.InterfaceAdapters.Tests.Unit.Controllers
     public class GenderControllerTests
     {
 
-
         #region - - - - - - Fields - - - - - -
 
         private readonly CancellationToken m_CancellationToken = new CancellationToken();
