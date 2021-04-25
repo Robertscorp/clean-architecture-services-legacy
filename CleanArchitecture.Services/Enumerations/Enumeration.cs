@@ -62,6 +62,9 @@ namespace CleanArchitecture.Services.Enumerations
         public override int GetHashCode()
             => this.m_Value.GetHashCode();
 
+        public int GetValue()
+            => this.m_Value;
+
         public EntityID ToEntityID()
             => (EnumerationEntityID)this;
 

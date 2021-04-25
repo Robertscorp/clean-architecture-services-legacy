@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Customers.DeleteCustomer
+namespace CleanArchitecture.Example.Application.UseCases.Customers.DeleteCustomer
 {
 
     public class DeleteCustomerRequestValidator : Services.Pipeline.AbstractValidator<DeleteCustomerRequest>

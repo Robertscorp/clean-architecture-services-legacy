@@ -7,7 +7,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Customers.DeleteCustomer
+namespace CleanArchitecture.Example.Application.UseCases.Customers.DeleteCustomer
 {
 
     public class DeleteCustomerInteractor : IUseCaseInteractor<DeleteCustomerRequest, CustomerDto>
