@@ -1,10 +1,14 @@
-﻿namespace CleanArchitecture.Example.Domain.Entities
+﻿using CleanArchitecture.Services.Entities;
+
+namespace CleanArchitecture.Example.Domain.Entities
 {
 
     public class Vehicle
     {
 
         #region - - - - - - Properties - - - - - -
+
+        public EntityID ID { get; set; }
 
         public string Make { get; set; }
 

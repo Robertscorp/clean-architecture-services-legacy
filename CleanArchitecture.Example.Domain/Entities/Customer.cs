@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CleanArchitecture.Services.Entities;
+using System.Collections.Generic;
 
 namespace CleanArchitecture.Example.Domain.Entities
 {
@@ -7,6 +8,8 @@ namespace CleanArchitecture.Example.Domain.Entities
     {
 
         #region - - - - - - Properties - - - - - -
+
+        public EntityID ID { get; set; }
 
         public Person CustomerDetails { get; set; }
 
