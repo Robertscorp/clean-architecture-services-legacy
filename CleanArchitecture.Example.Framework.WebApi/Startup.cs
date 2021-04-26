@@ -87,16 +87,13 @@ namespace CleanArchitecture.Example.Framework.WebApi
 
         #region - - - - - - IPersistenceContext Implementation - - - - - -
 
-        public Task<TEntity> AddAsync<TEntity>(TEntity entity, CancellationToken cancellationToken) where TEntity : class
+        public Task<EntityID> AddAsync<TEntity>(TEntity entity, CancellationToken cancellationToken) where TEntity : class
             => throw new NotImplementedException();
 
         public Task<TEntity> FindAsync<TEntity>(EntityID entityID, CancellationToken cancellationToken) where TEntity : class
             => throw new NotImplementedException();
 
         public Task<IQueryable<TEntity>> GetEntitiesAsync<TEntity>(CancellationToken cancellationToken) where TEntity : class
-            => throw new NotImplementedException();
-
-        public Task<EntityID> GetEntityIDAsync<TEntity>(TEntity entity, CancellationToken cancellationToken) where TEntity : class
             => throw new NotImplementedException();
 
         public Task RemoveAsync<TEntity>(TEntity entity, CancellationToken cancellationToken) where TEntity : class
