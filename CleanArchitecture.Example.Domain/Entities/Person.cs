@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Example.Domain.Enumerations;
+using CleanArchitecture.Services.Entities;
 
 namespace CleanArchitecture.Example.Domain.Entities
 {
@@ -7,6 +8,8 @@ namespace CleanArchitecture.Example.Domain.Entities
     {
 
         #region - - - - - - Properties - - - - - -
+
+        public EntityID ID { get; set; }
 
         public string EmailAddress { get; set; }
 
