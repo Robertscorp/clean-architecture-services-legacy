@@ -4,12 +4,10 @@ using CleanArchitecture.Services.Entities;
 namespace CleanArchitecture.Example.Domain.Entities
 {
 
-    public class Person
+    public class Person : IEntity
     {
 
         #region - - - - - - Properties - - - - - -
-
-        public EntityID ID { get; set; }
 
         public string EmailAddress { get; set; }
 
@@ -22,6 +20,12 @@ namespace CleanArchitecture.Example.Domain.Entities
         public string MobileNumber { get; set; }
 
         #endregion Properties
+
+        #region - - - - - - IEntity Implementation - - - - - -
+
+        public EntityID ID { get; set; }
+
+        #endregion IEntity Implementation
 
     }
 
