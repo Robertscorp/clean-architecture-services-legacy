@@ -4,16 +4,20 @@ using System;
 namespace CleanArchitecture.Example.Domain.Entities
 {
 
-    public class Day
+    public class Day : IEntity
     {
 
         #region - - - - - - Properties - - - - - -
 
-        public EntityID ID { get; set; }
-
         public DateTime Date { get; set; }
 
         #endregion Properties
+
+        #region - - - - - - IEntity Implementation - - - - - -
+
+        public EntityID ID { get; set; }
+
+        #endregion IEntity Implementation
 
     }
 

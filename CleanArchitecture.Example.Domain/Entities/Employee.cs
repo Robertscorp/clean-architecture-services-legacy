@@ -4,12 +4,10 @@ using CleanArchitecture.Services.Entities;
 namespace CleanArchitecture.Example.Domain.Entities
 {
 
-    public class Employee
+    public class Employee : IEntity
     {
 
         #region - - - - - - Properties - - - - - -
-
-        public EntityID ID { get; set; }
 
         public Person EmployeeDetails { get; set; }
 
@@ -20,6 +18,12 @@ namespace CleanArchitecture.Example.Domain.Entities
         public User User { get; set; }
 
         #endregion Properties
+
+        #region - - - - - - IEntity Implementation - - - - - -
+
+        public EntityID ID { get; set; }
+
+        #endregion IEntity Implementation
 
     }
 

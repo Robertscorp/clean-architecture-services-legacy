@@ -3,12 +3,10 @@
 namespace CleanArchitecture.Example.Domain.Entities
 {
 
-    public class VehicleService
+    public class VehicleService : IEntity
     {
 
         #region - - - - - - Properties - - - - - -
-
-        public EntityID ID { get; set; }
 
         public Day DayServiced { get; set; }
 
@@ -17,6 +15,12 @@ namespace CleanArchitecture.Example.Domain.Entities
         public Vehicle Vehicle { get; set; }
 
         #endregion Properties
+
+        #region - - - - - - IEntity Implementation - - - - - -
+
+        public EntityID ID { get; set; }
+
+        #endregion IEntity Implementation
 
     }
 

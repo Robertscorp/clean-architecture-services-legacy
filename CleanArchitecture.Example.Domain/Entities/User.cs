@@ -3,18 +3,22 @@
 namespace CleanArchitecture.Example.Domain.Entities
 {
 
-    public class User
+    public class User : IEntity
     {
 
         #region - - - - - - Properties - - - - - -
-
-        public EntityID ID { get; set; }
 
         public string HashedPassword { get; set; }
 
         public string UserName { get; set; }
 
         #endregion Properties
+
+        #region - - - - - - IEntity Implementation - - - - - -
+
+        public EntityID ID { get; set; }
+
+        #endregion IEntity Implementation
 
     }
 
