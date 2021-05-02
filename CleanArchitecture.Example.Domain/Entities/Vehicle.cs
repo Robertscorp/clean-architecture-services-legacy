@@ -3,12 +3,10 @@
 namespace CleanArchitecture.Example.Domain.Entities
 {
 
-    public class Vehicle
+    public class Vehicle : IEntity
     {
 
         #region - - - - - - Properties - - - - - -
-
-        public EntityID ID { get; set; }
 
         public string Make { get; set; }
 
@@ -19,6 +17,12 @@ namespace CleanArchitecture.Example.Domain.Entities
         public string RegistrationNumber { get; set; }
 
         #endregion Properties
+
+        #region - - - - - - IEntity Implementation - - - - - -
+
+        public EntityID ID { get; set; }
+
+        #endregion IEntity Implementation
 
     }
 
