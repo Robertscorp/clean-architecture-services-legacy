@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using CleanArchitecture.Example.Application.Extensions;
+using CleanArchitecture.Example.Application.Infrastructure.Mapping;
 using CleanArchitecture.Example.Domain.Entities;
+using CleanArchitecture.Services.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;
 
@@ -17,13 +18,13 @@ namespace CleanArchitecture.Example.Application.UseCases.Users.CreateUser
             _ = this.CreateMap<CreateUserRequest, Employee>()
                     .ForMember(dest => dest.EmployeeDetails, opts => opts.MapFrom(src => src))
                     .ForMember(dest => dest.ID, opts => opts.Ignore())
-                    .ForMember(dest => dest.Role, opts => opts.MapFromEntityID(src => src.EmployeeRoleID))
+                    .ForMember(dest => dest.Role, opts => opts.ConvertUsing<EntityIDConverter<EmployeeRole>, EntityID>(src => src.GenderID))
                     .ForMember(dest => dest.Title, opts => opts.Ignore())
                     .ForMember(dest => dest.User, opts => opts.MapFrom(src => src));
 
             _ = this.CreateMap<CreateUserRequest, Person>()
                     .ForMember(dest => dest.EmailAddress, opts => opts.Ignore())
-                    .ForMember(dest => dest.Gender, opts => opts.MapFromEntityID(src => src.GenderID))
+                    .ForMember(dest => dest.Gender, opts => opts.ConvertUsing<EntityIDConverter<Gender>, EntityID>(src => src.GenderID))
                     .ForMember(dest => dest.ID, opts => opts.Ignore())
                     .ForMember(dest => dest.MobileNumber, opts => opts.Ignore());
 

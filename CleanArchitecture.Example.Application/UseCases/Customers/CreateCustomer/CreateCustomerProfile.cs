@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using CleanArchitecture.Example.Application.Extensions;
+using CleanArchitecture.Example.Application.Infrastructure.Mapping;
 using CleanArchitecture.Example.Domain.Entities;
+using CleanArchitecture.Services.Entities;
 
 namespace CleanArchitecture.Example.Application.UseCases.Customers.CreateCustomer
 {
@@ -18,7 +19,7 @@ namespace CleanArchitecture.Example.Application.UseCases.Customers.CreateCustome
                     .ForMember(dest => dest.Vehicles, opts => opts.Ignore());
 
             _ = this.CreateMap<CreateCustomerRequest, Person>()
-                    .ForMember(dest => dest.Gender, opts => opts.MapFromEntityID(src => src.GenderID))
+                    .ForMember(dest => dest.Gender, opts => opts.ConvertUsing<EntityIDConverter<Gender>, EntityID>(src => src.GenderID))
                     .ForMember(dest => dest.ID, opts => opts.Ignore());
         }
 
