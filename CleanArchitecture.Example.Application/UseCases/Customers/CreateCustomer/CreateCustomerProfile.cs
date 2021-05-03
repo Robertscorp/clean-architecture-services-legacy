@@ -14,10 +14,12 @@ namespace CleanArchitecture.Example.Application.UseCases.Customers.CreateCustome
         {
             _ = this.CreateMap<CreateCustomerRequest, Customer>()
                     .ForMember(dest => dest.CustomerDetails, opts => opts.MapFrom(src => src))
+                    .ForMember(dest => dest.ID, opts => opts.Ignore())
                     .ForMember(dest => dest.Vehicles, opts => opts.Ignore());
 
             _ = this.CreateMap<CreateCustomerRequest, Person>()
-                    .ForMember(dest => dest.Gender, opts => opts.MapFromEntityID(src => src.GenderID));
+                    .ForMember(dest => dest.Gender, opts => opts.MapFromEntityID(src => src.GenderID))
+                    .ForMember(dest => dest.ID, opts => opts.Ignore());
         }
 
         #endregion Constructors

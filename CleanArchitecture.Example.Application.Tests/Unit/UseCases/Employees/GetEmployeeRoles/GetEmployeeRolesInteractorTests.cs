@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Example.Application.Services.Pipeline;
 using CleanArchitecture.Example.Application.UseCases.Employees.GetEmployeeRoles;
-using CleanArchitecture.Example.Domain.Enumerations;
+using CleanArchitecture.Example.Domain.Entities;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +25,9 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Employees.Ge
             var _EmployeeRoleDtos = new List<EmployeeRoleDto>();
 
             var _MockMapper = new Mock<IMapper>();
-            _MockMapper
-                .Setup(mock => mock.Map<List<EmployeeRoleDto>>(It.IsAny<IEnumerable<EmployeeRoleEnumeration>>()))
-                .Returns(_EmployeeRoleDtos);
+            _ = _MockMapper
+                    .Setup(mock => mock.Map<List<EmployeeRoleDto>>(It.IsAny<IEnumerable<EmployeeRole>>()))
+                    .Returns(_EmployeeRoleDtos);
 
             var _MockPresenter = new Mock<IPresenter<IQueryable<EmployeeRoleDto>>>();
 
@@ -37,7 +37,7 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Employees.Ge
             await _Interactor.HandleAsync(new GetEmployeeRolesRequest(), _MockPresenter.Object, _CancellationToken);
 
             // Assert
-            _MockMapper.Verify(mock => mock.Map<List<EmployeeRoleDto>>(It.IsAny<IEnumerable<EmployeeRoleEnumeration>>()));
+            _MockMapper.Verify(mock => mock.Map<List<EmployeeRoleDto>>(It.IsAny<IEnumerable<EmployeeRole>>()));
             _MockPresenter.Verify(mock => mock.PresentAsync(It.IsAny<IQueryable<EmployeeRoleDto>>(), _CancellationToken));
 
             _MockMapper.VerifyNoOtherCalls();

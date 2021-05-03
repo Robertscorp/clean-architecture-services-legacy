@@ -16,6 +16,7 @@ namespace CleanArchitecture.Example.Application.UseCases.Users.CreateUser
         {
             _ = this.CreateMap<CreateUserRequest, Employee>()
                     .ForMember(dest => dest.EmployeeDetails, opts => opts.MapFrom(src => src))
+                    .ForMember(dest => dest.ID, opts => opts.Ignore())
                     .ForMember(dest => dest.Role, opts => opts.MapFromEntityID(src => src.EmployeeRoleID))
                     .ForMember(dest => dest.Title, opts => opts.Ignore())
                     .ForMember(dest => dest.User, opts => opts.MapFrom(src => src));
@@ -23,10 +24,12 @@ namespace CleanArchitecture.Example.Application.UseCases.Users.CreateUser
             _ = this.CreateMap<CreateUserRequest, Person>()
                     .ForMember(dest => dest.EmailAddress, opts => opts.Ignore())
                     .ForMember(dest => dest.Gender, opts => opts.MapFromEntityID(src => src.GenderID))
+                    .ForMember(dest => dest.ID, opts => opts.Ignore())
                     .ForMember(dest => dest.MobileNumber, opts => opts.Ignore());
 
             _ = this.CreateMap<CreateUserRequest, User>()
-                    .ForMember(dest => dest.HashedPassword, opts => opts.MapFrom<HashedPasswordValueResolver>());
+                    .ForMember(dest => dest.HashedPassword, opts => opts.MapFrom<HashedPasswordValueResolver>())
+                    .ForMember(dest => dest.ID, opts => opts.Ignore());
         }
 
         #endregion Constructors

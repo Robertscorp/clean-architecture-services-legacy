@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CleanArchitecture.Example.Domain.Enumerations;
+using CleanArchitecture.Example.Domain.Entities;
 
 namespace CleanArchitecture.Example.Application.UseCases.Employees.GetEmployeeRoles
 {
@@ -11,8 +11,8 @@ namespace CleanArchitecture.Example.Application.UseCases.Employees.GetEmployeeRo
 
         public GetEmployeeRolesProfile()
         {
-            _ = this.CreateMap<EmployeeRoleEnumeration, EmployeeRoleDto>()
-                    .ForMember(dest => dest.EmployeeRoleID, opts => opts.MapFrom(src => src.ToEntityID()))
+            _ = this.CreateMap<EmployeeRole, EmployeeRoleDto>()
+                    .ForMember(dest => dest.EmployeeRoleID, opts => opts.MapFrom(src => src.ID))
                     .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.ToString()));
         }
 
