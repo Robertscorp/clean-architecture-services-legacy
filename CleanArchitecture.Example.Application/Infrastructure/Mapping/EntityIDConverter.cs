@@ -23,12 +23,12 @@ namespace CleanArchitecture.Example.Application.Infrastructure.Mapping
 
         #endregion Constructors
 
-        #region - - - - - - IMemberValueResolver Implementation - - - - - -
+        #region - - - - - - IValueConverter Implementation - - - - - -
 
         public TDestinationMember Convert(EntityID sourceMember, ResolutionContext context)
             => this.m_PersistenceContext.FindAsync<TDestinationMember>(sourceMember, CancellationToken.None).GetAwaiter().GetResult();
 
-        #endregion IMemberValueResolver Implementation
+        #endregion IValueConverter Implementation
 
     }
 
