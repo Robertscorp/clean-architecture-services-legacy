@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CleanArchitecture.Services.Entities
 {
@@ -37,16 +35,6 @@ namespace CleanArchitecture.Services.Entities
 
         public override bool Equals(object obj)
             => obj is StaticEntity _Enumeration && Equals(this.ID, _Enumeration.ID);
-
-        public static TEntity Get<TEntity>(EntityID entityID) where TEntity : StaticEntity
-            => GetAll<TEntity>().SingleOrDefault(e => Equals(e.ID, entityID));
-
-        public static IEnumerable<TEntity> GetAll<TEntity>() where TEntity : StaticEntity
-            => typeof(TEntity)
-                .GetFields()
-                .Where(f => typeof(StaticEntity).IsAssignableFrom(f.FieldType))
-                .Select(f => f.GetValue(null))
-                .Cast<TEntity>();
 
         private long GetEntityIDValue()
             => ((StaticEntityID)this.ID).Value;
