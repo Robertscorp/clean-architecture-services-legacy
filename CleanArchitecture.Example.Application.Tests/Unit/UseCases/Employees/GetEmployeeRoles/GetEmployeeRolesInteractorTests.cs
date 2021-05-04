@@ -28,7 +28,7 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Employees.Ge
 
             var _MockMapper = new Mock<IMapper>();
             _ = _MockMapper
-                    .Setup(mock => mock.Map<List<EmployeeRoleDto>>(It.IsAny<IEnumerable<EmployeeRole>>()))
+                    .Setup(mock => mock.Map<List<EmployeeRoleDto>>(_EmployeeRoles))
                     .Returns(_EmployeeRoleDtos);
 
             var _MockPersistenceContext = new Mock<IPersistenceContext>();
