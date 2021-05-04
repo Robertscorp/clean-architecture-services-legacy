@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Example.Application.Services.Pipeline;
-using CleanArchitecture.Example.Domain.Enumerations;
+using CleanArchitecture.Example.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,8 +31,8 @@ namespace CleanArchitecture.Example.Application.UseCases.People.GetGenders
         public Task HandleAsync(GetGendersRequest request, IPresenter<IQueryable<GenderDto>> presenter, CancellationToken cancellationToken)
             => presenter.PresentAsync(this.m_Mapper.Map<List<GenderDto>>(new[]
             {
-                GenderEnumeration.Male,
-                GenderEnumeration.Female
+                Gender.Male,
+                Gender.Female
             }).AsQueryable(), cancellationToken);
 
         #endregion IUseCaseInteractor Implementation

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Example.Application.Services.Pipeline;
 using CleanArchitecture.Example.Application.UseCases.People.GetGenders;
-using CleanArchitecture.Example.Domain.Enumerations;
+using CleanArchitecture.Example.Domain.Entities;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.People.GetGe
 
             var _MockMapper = new Mock<IMapper>();
             _ = _MockMapper
-                    .Setup(mock => mock.Map<List<GenderDto>>(It.IsAny<IEnumerable<GenderEnumeration>>()))
+                    .Setup(mock => mock.Map<List<GenderDto>>(It.IsAny<IEnumerable<Gender>>()))
                     .Returns(_GenderDtos);
 
             var _MockPresenter = new Mock<IPresenter<IQueryable<GenderDto>>>();
@@ -37,7 +37,7 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.People.GetGe
             await _Interactor.HandleAsync(new GetGendersRequest(), _MockPresenter.Object, _CancellationToken);
 
             // Assert
-            _MockMapper.Verify(mock => mock.Map<List<GenderDto>>(It.IsAny<IEnumerable<GenderEnumeration>>()));
+            _MockMapper.Verify(mock => mock.Map<List<GenderDto>>(It.IsAny<IEnumerable<Gender>>()));
             _MockPresenter.Verify(mock => mock.PresentAsync(It.IsAny<IQueryable<GenderDto>>(), _CancellationToken));
 
             _MockMapper.VerifyNoOtherCalls();

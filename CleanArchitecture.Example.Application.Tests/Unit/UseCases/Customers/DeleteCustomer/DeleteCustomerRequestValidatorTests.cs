@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Services.Entities;
+﻿using CleanArchitecture.Example.Application.UseCases.Customers.DeleteCustomer;
+using CleanArchitecture.Services.Entities;
 using FluentValidation.TestHelper;
 using Xunit;
 
