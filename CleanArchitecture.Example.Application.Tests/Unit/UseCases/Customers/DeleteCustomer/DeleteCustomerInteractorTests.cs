@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Example.Application.Dtos;
 using CleanArchitecture.Example.Application.Services.Pipeline;
+using CleanArchitecture.Example.Application.UseCases.Customers.DeleteCustomer;
 using CleanArchitecture.Example.Domain.Entities;
 using CleanArchitecture.Services.Entities;
 using CleanArchitecture.Services.Persistence;

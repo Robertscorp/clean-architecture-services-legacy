@@ -1,5 +1,4 @@
 ﻿using CleanArchitecture.Services.Entities;
-using CleanArchitecture.Services.Enumerations;
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -17,9 +16,9 @@ namespace CleanArchitecture.Services.Infrastructure
 
         public override void Write(Utf8JsonWriter writer, EntityID value, JsonSerializerOptions options)
         {
-            if (value is EnumerationEntityID _EnumerationEntityID)
+            if (value is StaticEntityID _StaticEntityID)
             {
-                writer.WriteNumberValue(((Enumeration)_EnumerationEntityID).GetValue());
+                writer.WriteNumberValue(_StaticEntityID.Value);
                 return;
             }
         }

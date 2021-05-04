@@ -1,5 +1,4 @@
-﻿using CleanArchitecture.Example.Domain.Enumerations;
-using CleanArchitecture.Services.Entities;
+﻿using CleanArchitecture.Services.Entities;
 
 namespace CleanArchitecture.Example.Domain.Entities
 {
@@ -11,7 +10,7 @@ namespace CleanArchitecture.Example.Domain.Entities
 
         public Person EmployeeDetails { get; set; }
 
-        public EmployeeRoleEnumeration Role { get; set; }
+        public EmployeeRole Role { get; set; }
 
         public string Title { get; set; }
 
