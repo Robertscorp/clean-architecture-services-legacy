@@ -66,7 +66,7 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
         }
 
         [Fact]
-        public void GetEntities_EntityIsNotAStaticEntity_ReturnsEmptyCollection()
+        public void GetEntities_EntityIsNotAStaticEntity_ReturnsNull()
         {
             // Arrange
 
@@ -74,7 +74,7 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
             var _Actual = StaticEntityContext.GetEntities<NotStaticEntity>();
 
             // Assert
-            _ = _Actual.Should().BeEmpty();
+            _ = _Actual.Should().BeNull();
         }
 
         #endregion GetEntities Tests
