@@ -2,8 +2,9 @@
 using CleanArchitecture.Example.Application.Services.Pipeline;
 using CleanArchitecture.Example.Application.UseCases.People.GetGenders;
 using CleanArchitecture.Example.Domain.Entities;
+using CleanArchitecture.Services.Persistence;
+using FluentAssertions;
 using Moq;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,26 +22,37 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.People.GetGe
         public async Task HandleAsync_AnyRequest_PresentsSuccessfully()
         {
             // Arrange
+            var _Actual = default(IQueryable<GenderDto>);
             var _CancellationToken = new CancellationToken();
-            var _GenderDtos = new List<GenderDto>();
+            var _Genders = new[] { Gender.Mayonnaise };
+            var _GenderDtos = new[] { new GenderDto { Name = Gender.Mayonnaise.Name } };
 
             var _MockMapper = new Mock<IMapper>();
             _ = _MockMapper
-                    .Setup(mock => mock.Map<List<GenderDto>>(It.IsAny<IEnumerable<Gender>>()))
-                    .Returns(_GenderDtos);
+                    .Setup(mock => mock.ConfigurationProvider)
+                    .Returns(new MapperConfiguration(opts => opts.CreateMap<Gender, GenderDto>()));
+
+            var _MockPersistenceContext = new Mock<IPersistenceContext>();
+            _ = _MockPersistenceContext
+                    .Setup(mock => mock.GetEntitiesAsync<Gender>(_CancellationToken))
+                    .Returns(Task.FromResult(_Genders.AsQueryable()));
 
             var _MockPresenter = new Mock<IPresenter<IQueryable<GenderDto>>>();
+            _ = _MockPresenter
+                    .Setup(mock => mock.PresentAsync(It.IsAny<IQueryable<GenderDto>>(), _CancellationToken))
+                    .Callback((IQueryable<GenderDto> dtos, CancellationToken ct) => _Actual = dtos);
 
-            var _Interactor = new GetGendersInteractor(_MockMapper.Object);
+            var _Interactor = new GetGendersInteractor(_MockMapper.Object, _MockPersistenceContext.Object);
 
             // Act
             await _Interactor.HandleAsync(new GetGendersRequest(), _MockPresenter.Object, _CancellationToken);
 
             // Assert
-            _MockMapper.Verify(mock => mock.Map<List<GenderDto>>(It.IsAny<IEnumerable<Gender>>()));
+            _ = _Actual.Should().BeEquivalentTo(_GenderDtos);
+
+            _MockPersistenceContext.Verify(mock => mock.GetEntitiesAsync<Gender>(_CancellationToken));
             _MockPresenter.Verify(mock => mock.PresentAsync(It.IsAny<IQueryable<GenderDto>>(), _CancellationToken));
 
-            _MockMapper.VerifyNoOtherCalls();
             _MockPresenter.VerifyNoOtherCalls();
         }
 

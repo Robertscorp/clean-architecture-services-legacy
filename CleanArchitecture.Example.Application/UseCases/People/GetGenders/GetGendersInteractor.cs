@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using CleanArchitecture.Example.Application.Services.Pipeline;
 using CleanArchitecture.Example.Domain.Entities;
+using CleanArchitecture.Services.Persistence;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,24 +17,24 @@ namespace CleanArchitecture.Example.Application.UseCases.People.GetGenders
         #region - - - - - - Fields - - - - - -
 
         private readonly IMapper m_Mapper;
+        private readonly IPersistenceContext m_PersistenceContext;
 
         #endregion Fields
 
         #region - - - - - - Constructors - - - - - -
 
-        public GetGendersInteractor(IMapper mapper)
-            => this.m_Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        public GetGendersInteractor(IMapper mapper, IPersistenceContext persistenceContext)
+        {
+            this.m_Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            this.m_PersistenceContext = persistenceContext ?? throw new ArgumentNullException(nameof(persistenceContext));
+        }
 
         #endregion Constructors
 
         #region - - - - - - IUseCaseInteractor Implementation - - - - - -
 
-        public Task HandleAsync(GetGendersRequest request, IPresenter<IQueryable<GenderDto>> presenter, CancellationToken cancellationToken)
-            => presenter.PresentAsync(this.m_Mapper.Map<List<GenderDto>>(new[]
-            {
-                Gender.Male,
-                Gender.Female
-            }).AsQueryable(), cancellationToken);
+        public async Task HandleAsync(GetGendersRequest request, IPresenter<IQueryable<GenderDto>> presenter, CancellationToken cancellationToken)
+            => await presenter.PresentAsync((await this.m_PersistenceContext.GetEntitiesAsync<Gender>(cancellationToken)).ProjectTo<GenderDto>(this.m_Mapper.ConfigurationProvider), cancellationToken);
 
         #endregion IUseCaseInteractor Implementation
 
