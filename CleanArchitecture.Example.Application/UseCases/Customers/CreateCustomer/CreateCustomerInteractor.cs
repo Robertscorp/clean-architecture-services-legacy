@@ -35,6 +35,11 @@ namespace CleanArchitecture.Example.Application.UseCases.Customers.CreateCustome
         public async Task HandleAsync(CreateCustomerRequest request, IPresenter<CustomerDto> presenter, CancellationToken cancellationToken)
         {
             var _Customer = this.m_Mapper.Map<Customer>(request);
+            if (_Customer.CustomerDetails.Gender == null)
+            {
+                await presenter.PresentEntityNotFoundAsync(request.GenderID, cancellationToken);
+                return;
+            }
 
             _ = await this.m_PersistenceContext.AddAsync(_Customer, cancellationToken);
             await presenter.PresentAsync(this.m_Mapper.Map<CustomerDto>(_Customer), cancellationToken);
