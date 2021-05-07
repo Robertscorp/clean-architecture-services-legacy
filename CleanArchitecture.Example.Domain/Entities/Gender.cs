@@ -20,6 +20,13 @@ namespace CleanArchitecture.Example.Domain.Entities
 
         #endregion Constructors
 
+        #region - - - - - - Methods - - - - - -
+
+        protected override bool IsContextEntity()
+            => !Equals(this, Mayonnaise);
+
+        #endregion Methods
+
     }
 
 }
