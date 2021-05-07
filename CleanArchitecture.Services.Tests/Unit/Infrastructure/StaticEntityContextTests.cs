@@ -37,6 +37,18 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
         }
 
         [Fact]
+        public void Find_EntityIsNotAContextEntity_ReturnsNull()
+        {
+            // Arrange
+
+            // Act
+            var _Actual = StaticEntityContext.Find<DayOfWeek>(DayOfWeek.Smunday.ID);
+
+            // Assert
+            _ = _Actual.Should().BeNull();
+        }
+
+        [Fact]
         public void Find_EntityTypeIsNotAStaticEntity_ReturnsNull()
         {
             // Arrange
@@ -53,7 +65,7 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
         #region - - - - - - GetEntities Tests - - - - - -
 
         [Fact]
-        public void GetEntities_EntityIsAStaticEntity_ReturnsAllDefinedStaticEntities()
+        public void GetEntities_EntityIsAStaticEntity_ReturnsAllContextEntities()
         {
             // Arrange
             var _Expected = new[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday };
@@ -87,6 +99,7 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
             #region - - - - - - Fields - - - - - -
 
             public static DayOfWeek Monday = new DayOfWeek("Monday", 1);
+            public static DayOfWeek Smunday = new DayOfWeek("Smunday", 8);
             public static DayOfWeek Tuesday = new DayOfWeek("Tuesday", 2);
             public static DayOfWeek Wednesday = new DayOfWeek("Wednesday", 3);
 
@@ -97,6 +110,13 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
             private DayOfWeek(string name, long value) : base(name, value) { }
 
             #endregion Constructors
+
+            #region - - - - - - Methods - - - - - -
+
+            protected override bool IsContextEntity()
+                => !Equals(this, Smunday);
+
+            #endregion Methods
 
         }
 

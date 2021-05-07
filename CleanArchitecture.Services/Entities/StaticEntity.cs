@@ -42,6 +42,12 @@ namespace CleanArchitecture.Services.Entities
         public override int GetHashCode()
             => this.ID.GetHashCode();
 
+        /// <summary>
+        /// Determines if this instance will be returned from the Static Entity Context.
+        /// </summary>
+        protected internal virtual bool IsContextEntity()
+            => true;
+
         public override string ToString()
             => this.Name;
 

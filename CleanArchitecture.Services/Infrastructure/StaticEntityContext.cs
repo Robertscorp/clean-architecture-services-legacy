@@ -37,6 +37,8 @@ namespace CleanArchitecture.Services.Infrastructure
                                             .GetFields()
                                             .Where(f => typeof(TEntity).IsAssignableFrom(f.FieldType))
                                             .Select(f => f.GetValue(null))
+                                            .OfType<StaticEntity>()
+                                            .Where(e => e.IsContextEntity())
                                             .OfType<TEntity>()
                                             .ToArray()
                                         : null
