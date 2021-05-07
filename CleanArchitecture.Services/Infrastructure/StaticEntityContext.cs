@@ -19,7 +19,7 @@ namespace CleanArchitecture.Services.Infrastructure
         #region - - - - - - Methods - - - - - -
 
         public static TEntity Find<TEntity>(EntityID entityID) where TEntity : class
-            => (TEntity)GetEntitiesInternal<TEntity>().SingleOrDefault(e => Equals(((StaticEntity)e).ID, entityID));
+            => (TEntity)GetEntitiesInternal<TEntity>()?.SingleOrDefault(e => Equals(((StaticEntity)e).ID, entityID));
 
         public static TEntity[] GetEntities<TEntity>() where TEntity : class
             => (TEntity[])GetEntitiesInternal<TEntity>();
@@ -32,13 +32,15 @@ namespace CleanArchitecture.Services.Infrastructure
             if (!s_EntitiesByType.TryGetValue(typeof(TEntity), out var _StaticEntities))
                 _StaticEntities = s_EntitiesByType.GetOrAdd(
                                     typeof(TEntity),
-                                    typeof(TEntity)
-                                        .GetFields()
-                                        .Where(f => typeof(TEntity).IsAssignableFrom(f.FieldType))
-                                        .Select(f => f.GetValue(null))
-                                        .OfType<StaticEntity>()
-                                        .OfType<TEntity>()
-                                        .ToArray());
+                                    typeof(StaticEntity).IsAssignableFrom(typeof(TEntity))
+                                        ? typeof(TEntity)
+                                            .GetFields()
+                                            .Where(f => typeof(TEntity).IsAssignableFrom(f.FieldType))
+                                            .Select(f => f.GetValue(null))
+                                            .OfType<TEntity>()
+                                            .ToArray()
+                                        : null
+                                    );
 
             return _StaticEntities;
         }
