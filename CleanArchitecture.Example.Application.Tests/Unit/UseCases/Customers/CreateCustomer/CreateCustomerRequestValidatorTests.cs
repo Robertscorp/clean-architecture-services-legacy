@@ -1,6 +1,7 @@
 ﻿using CleanArchitecture.Example.Application.UseCases.Customers.CreateCustomer;
 using CleanArchitecture.Services.Entities;
 using FluentValidation.TestHelper;
+using Moq;
 using Xunit;
 
 namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Customers.CreateCustomer
@@ -56,7 +57,7 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Customers.Cr
 
         [Fact]
         public void Validate_ValidGenderID_ShouldNotHaveValidationError()
-            => new CreateCustomerRequestValidator().ShouldNotHaveValidationErrorFor(r => r.GenderID, new EntityID());
+            => new CreateCustomerRequestValidator().ShouldNotHaveValidationErrorFor(r => r.GenderID, new Mock<EntityID>().Object);
 
         [Theory]
         [InlineData(null)]

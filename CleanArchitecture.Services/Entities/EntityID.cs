@@ -1,7 +1,7 @@
 ﻿namespace CleanArchitecture.Services.Entities
 {
 
-    public class EntityID
+    public abstract class EntityID
     {
     }
 
