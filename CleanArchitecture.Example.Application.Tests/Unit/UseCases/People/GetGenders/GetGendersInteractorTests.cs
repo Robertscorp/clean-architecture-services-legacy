@@ -24,8 +24,8 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.People.GetGe
             // Arrange
             var _Actual = default(IQueryable<GenderDto>);
             var _CancellationToken = new CancellationToken();
-            var _Genders = new[] { Gender.Mayonnaise };
             var _GenderDtos = new[] { new GenderDto { Name = Gender.Mayonnaise.Name } };
+            var _Genders = new[] { Gender.Mayonnaise };
 
             var _MockMapper = new Mock<IMapper>();
             _ = _MockMapper
