@@ -21,7 +21,7 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Customers.De
         private readonly CancellationToken m_CancellationToken = new CancellationToken();
         private readonly Customer m_ExistingCustomer = new Customer();
         private readonly CustomerDto m_ExistingCustomerDto = new CustomerDto();
-        private readonly EntityID m_ExistingCustomerID = new EntityID();
+        private readonly EntityID m_ExistingCustomerID = new Mock<EntityID>().Object;
         private readonly DeleteCustomerInteractor m_Interactor;
 
         private readonly Mock<IPersistenceContext> m_MockPersistenceContext = new Mock<IPersistenceContext>();
@@ -53,7 +53,7 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Customers.De
         public async Task HandleAsync_CustomerDoesNotExist_PresentsEntityNotFound()
         {
             // Arrange
-            var _Request = new DeleteCustomerRequest() { CustomerID = new EntityID() };
+            var _Request = new DeleteCustomerRequest() { CustomerID = new Mock<EntityID>().Object };
 
             // Act
             await this.m_Interactor.HandleAsync(_Request, this.m_MockPresenter.Object, this.m_CancellationToken);
