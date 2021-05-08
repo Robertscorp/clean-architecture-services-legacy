@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using CleanArchitecture.Example.Application.Services.Pipeline;
 using CleanArchitecture.Example.Domain.Entities;
 using CleanArchitecture.Services.Persistence;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,7 +34,7 @@ namespace CleanArchitecture.Example.Application.UseCases.Employees.GetEmployeeRo
         #region - - - - - - IUseCaseInteractor Implementation - - - - - -
 
         public async Task HandleAsync(GetEmployeeRolesRequest request, IPresenter<IQueryable<EmployeeRoleDto>> presenter, CancellationToken cancellationToken)
-            => await presenter.PresentAsync(this.m_Mapper.Map<List<EmployeeRoleDto>>(await this.m_PersistenceContext.GetEntitiesAsync<EmployeeRole>(cancellationToken)).AsQueryable(), cancellationToken);
+            => await presenter.PresentAsync((await this.m_PersistenceContext.GetEntitiesAsync<EmployeeRole>(cancellationToken)).ProjectTo<EmployeeRoleDto>(this.m_Mapper.ConfigurationProvider), cancellationToken);
 
         #endregion IUseCaseInteractor Implementation
 

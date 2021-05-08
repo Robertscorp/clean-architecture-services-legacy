@@ -1,6 +1,7 @@
 ﻿using CleanArchitecture.Example.Application.UseCases.Users.CreateUser;
 using CleanArchitecture.Services.Entities;
 using FluentValidation.TestHelper;
+using Moq;
 using Xunit;
 
 namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Users.CreateUser
@@ -25,7 +26,7 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Users.Create
 
         [Fact]
         public void Validate_ValidEmployeeRoleID_ShouldNotHaveValidationError()
-            => new CreateUserRequestValidator().ShouldNotHaveValidationErrorFor(r => r.EmployeeRoleID, new EntityID());
+            => new CreateUserRequestValidator().ShouldNotHaveValidationErrorFor(r => r.EmployeeRoleID, new Mock<EntityID>().Object);
 
         [Theory]
         [InlineData(null)]
@@ -47,7 +48,7 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Users.Create
 
         [Fact]
         public void Validate_ValidGenderID_ShouldNotHaveValidationError()
-            => new CreateUserRequestValidator().ShouldNotHaveValidationErrorFor(r => r.GenderID, new EntityID());
+            => new CreateUserRequestValidator().ShouldNotHaveValidationErrorFor(r => r.GenderID, new Mock<EntityID>().Object);
 
         [Theory]
         [InlineData(null)]
