@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.Example.InterfaceAdapters\CleanArchitecture.Example.InterfaceAdapters.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Services.AspNetCore\CleanArchitecture.Services.AspNetCore.csproj" />
   </ItemGroup>
 
 </Project>
