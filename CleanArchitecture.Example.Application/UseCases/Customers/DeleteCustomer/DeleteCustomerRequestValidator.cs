@@ -1,9 +1,10 @@
-﻿using FluentValidation;
+﻿using CleanArchitecture.Services.Extended.FluentValidation;
+using FluentValidation;
 
 namespace CleanArchitecture.Example.Application.UseCases.Customers.DeleteCustomer
 {
 
-    public class DeleteCustomerRequestValidator : Services.Extended.Pipeline.AbstractValidator<DeleteCustomerRequest>
+    public class DeleteCustomerRequestValidator : Validator<DeleteCustomerRequest>
     {
 
         #region - - - - - - Constructors - - - - - -

@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Services.Entities;
+using CleanArchitecture.Services.Extended.FluentValidation;
 using CleanArchitecture.Services.Extended.Pipeline;
 using Microsoft.AspNetCore.Mvc;
 using System;

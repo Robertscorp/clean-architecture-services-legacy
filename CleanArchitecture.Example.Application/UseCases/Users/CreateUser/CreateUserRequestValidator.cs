@@ -1,9 +1,10 @@
-﻿using FluentValidation;
+﻿using CleanArchitecture.Services.Extended.FluentValidation;
+using FluentValidation;
 
 namespace CleanArchitecture.Example.Application.UseCases.Users.CreateUser
 {
 
-    public class CreateUserRequestValidator : Services.Extended.Pipeline.AbstractValidator<CreateUserRequest>
+    public class CreateUserRequestValidator : Validator<CreateUserRequest>
     {
 
         #region - - - - - - Constructors - - - - - -

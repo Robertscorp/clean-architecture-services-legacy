@@ -1,11 +1,12 @@
 ﻿using CleanArchitecture.Services.Pipeline;
+using FluentValidation;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Services.Extended.Pipeline
+namespace CleanArchitecture.Services.Extended.FluentValidation
 {
 
-    public abstract class AbstractValidator<TRequest> : FluentValidation.AbstractValidator<TRequest>, IRequestValidator<TRequest, ValidationResult>
+    public abstract class Validator<TRequest> : AbstractValidator<TRequest>, IRequestValidator<TRequest, ValidationResult>
     {
 
         #region - - - - - - IRequestValidator Implementation - - - - - -

@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Services.Pipeline;
+﻿using CleanArchitecture.Services.Extended.FluentValidation;
+using CleanArchitecture.Services.Pipeline;
 
 namespace CleanArchitecture.Services.Extended.Pipeline
 {
