@@ -3,7 +3,7 @@
 namespace CleanArchitecture.Example.Application.UseCases.Customers.CreateCustomer
 {
 
-    public class CreateCustomerRequestValidator : Services.Pipeline.AbstractValidator<CreateCustomerRequest>
+    public class CreateCustomerRequestValidator : Services.Extended.Pipeline.AbstractValidator<CreateCustomerRequest>
     {
 
         #region - - - - - - Constructors - - - - - -

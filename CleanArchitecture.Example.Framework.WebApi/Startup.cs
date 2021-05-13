@@ -1,6 +1,6 @@
-using CleanArchitecture.Example.Application.Services.Pipeline;
 using CleanArchitecture.Example.InterfaceAdapters.Controllers;
 using CleanArchitecture.Services.Entities;
+using CleanArchitecture.Services.Extended.Pipeline;
 using CleanArchitecture.Services.Infrastructure;
 using CleanArchitecture.Services.Persistence;
 using CleanArchitecture.Services.Pipeline;

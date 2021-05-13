@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using CleanArchitecture.Example.Application.Services.Pipeline;
 using CleanArchitecture.Example.Application.UseCases.People.GetGenders;
 using CleanArchitecture.Example.Domain.Entities;
+using CleanArchitecture.Services.Extended.Pipeline;
 using CleanArchitecture.Services.Persistence;
 using FluentAssertions;
 using Moq;

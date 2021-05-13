@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace CleanArchitecture.Example.Application.Services.Pipeline
+namespace CleanArchitecture.Services.Extended.Pipeline
 {
 
     public class ValidationResult : FluentValidation.Results.ValidationResult, IValidationResult

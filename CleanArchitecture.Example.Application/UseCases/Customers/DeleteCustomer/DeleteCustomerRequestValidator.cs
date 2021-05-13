@@ -3,7 +3,7 @@
 namespace CleanArchitecture.Example.Application.UseCases.Customers.DeleteCustomer
 {
 
-    public class DeleteCustomerRequestValidator : Services.Pipeline.AbstractValidator<DeleteCustomerRequest>
+    public class DeleteCustomerRequestValidator : Services.Extended.Pipeline.AbstractValidator<DeleteCustomerRequest>
     {
 
         #region - - - - - - Constructors - - - - - -

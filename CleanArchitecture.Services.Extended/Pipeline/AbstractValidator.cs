@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Example.Application.Services.Pipeline
+namespace CleanArchitecture.Services.Extended.Pipeline
 {
 
     public abstract class AbstractValidator<TRequest> : FluentValidation.AbstractValidator<TRequest>, IRequestValidator<TRequest, ValidationResult>

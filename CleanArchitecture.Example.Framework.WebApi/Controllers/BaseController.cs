@@ -1,5 +1,5 @@
-﻿using CleanArchitecture.Example.Application.Services.Pipeline;
-using CleanArchitecture.Example.Framework.WebApi.Presenters;
+﻿using CleanArchitecture.Example.Framework.WebApi.Presenters;
+using CleanArchitecture.Services.Extended.Pipeline;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;

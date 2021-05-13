@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using CleanArchitecture.Example.Application.Services.Pipeline;
 using CleanArchitecture.Example.Domain.Entities;
+using CleanArchitecture.Services.Extended.Pipeline;
 using CleanArchitecture.Services.Persistence;
 using System;
 using System.Linq;
