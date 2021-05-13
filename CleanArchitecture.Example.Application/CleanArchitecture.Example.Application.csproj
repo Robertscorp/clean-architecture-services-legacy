@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CleanArchitecture.Example.Domain\CleanArchitecture.Example.Domain.csproj" />
-    <ProjectReference Include="..\CleanArchitecture.Services\CleanArchitecture.Services.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Services.Extended\CleanArchitecture.Services.Extended.csproj" />
   </ItemGroup>
 
 </Project>
