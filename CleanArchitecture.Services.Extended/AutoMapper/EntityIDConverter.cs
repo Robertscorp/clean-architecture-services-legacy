@@ -4,7 +4,7 @@ using CleanArchitecture.Services.Persistence;
 using System;
 using System.Threading;
 
-namespace CleanArchitecture.Example.Application.Infrastructure.Mapping
+namespace CleanArchitecture.Services.Extended.AutoMapper
 {
 
     public class EntityIDConverter<TDestinationMember> : IValueConverter<EntityID, TDestinationMember> where TDestinationMember : class

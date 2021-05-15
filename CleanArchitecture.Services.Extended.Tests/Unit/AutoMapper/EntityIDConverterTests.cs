@@ -1,5 +1,5 @@
-﻿using CleanArchitecture.Example.Application.Infrastructure.Mapping;
-using CleanArchitecture.Services.Entities;
+﻿using CleanArchitecture.Services.Entities;
+using CleanArchitecture.Services.Extended.AutoMapper;
 using CleanArchitecture.Services.Persistence;
 using FluentAssertions;
 using Moq;
@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CleanArchitecture.Example.Application.Tests.Unit.Infrastructure.Mapping
+namespace CleanArchitecture.Services.Extended.Tests.Unit.AutoMapper
 {
 
     public class EntityIDConverterTests
