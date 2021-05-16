@@ -1,3 +1,4 @@
+using CleanArchitecture.Example.Application.Dtos;
 using CleanArchitecture.Example.InterfaceAdapters.Controllers;
 using CleanArchitecture.Services.Entities;
 using CleanArchitecture.Services.Extended.FluentValidation;
@@ -48,7 +49,10 @@ namespace CleanArchitecture.Example.Framework.WebApi
             _ = services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
             _ = services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "CleanArchitecture.Example.Framework.WebApi", Version = "v1" }));
 
-            _ = services.Scan(s => s.FromAssemblies(typeof(IUseCaseInvoker).Assembly, typeof(IPresenter<>).Assembly)
+            _ = services.Scan(s => s.FromAssemblies(
+                                        typeof(IUseCaseInvoker).Assembly,
+                                        typeof(IPresenter<>).Assembly,
+                                        typeof(UserDto).Assembly)
                                     .AddClasses(classes =>
                                         classes
                                             .Where(type => type.GetInterface(typeof(IUseCaseElement<,>).Name) == null)
