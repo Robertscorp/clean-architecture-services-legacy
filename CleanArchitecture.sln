@@ -19,9 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Example.I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Example.Framework.WebApi", "CleanArchitecture.Example.Framework.WebApi\CleanArchitecture.Example.Framework.WebApi.csproj", "{6CF6088F-69B6-43E6-85D4-99EA515266AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Services.Extended", "CleanArchitecture.Services.Extended\CleanArchitecture.Services.Extended.csproj", "{CD4CBBEA-AE13-4B33-9BFE-54584C96ED8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Services.Extended", "CleanArchitecture.Services.Extended\CleanArchitecture.Services.Extended.csproj", "{CD4CBBEA-AE13-4B33-9BFE-54584C96ED8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Services.Extended.Tests", "CleanArchitecture.Services.Extended.Tests\CleanArchitecture.Services.Extended.Tests.csproj", "{6AB63165-B85B-4DD4-ADD1-9D8E4AEAACAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Services.Extended.Tests", "CleanArchitecture.Services.Extended.Tests\CleanArchitecture.Services.Extended.Tests.csproj", "{6AB63165-B85B-4DD4-ADD1-9D8E4AEAACAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Services.AspNetCore", "CleanArchitecture.Services.AspNetCore\CleanArchitecture.Services.AspNetCore.csproj", "{738FA013-6698-4E8D-BBB6-C24BEA7A241B}"
 EndProject
