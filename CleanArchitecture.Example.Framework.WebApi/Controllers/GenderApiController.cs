@@ -2,6 +2,7 @@
 using CleanArchitecture.Example.InterfaceAdapters.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Example.Framework.WebApi.Controllers
@@ -27,8 +28,8 @@ namespace CleanArchitecture.Example.Framework.WebApi.Controllers
         #region - - - - - - Methods - - - - - -
 
         [HttpGet]
-        public Task<IActionResult> GetGenders()
-            => this.GetManyAsync<GenderDto>(this.m_GenderController.GetGendersAsync);
+        public Task<IActionResult> GetGendersAsync()
+            => this.GetManyAsync<GenderDto>(this.m_GenderController.GetGendersAsync, CancellationToken.None);
 
         #endregion Methods
 
