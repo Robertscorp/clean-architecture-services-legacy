@@ -1,6 +1,6 @@
-﻿using CleanArchitecture.Example.Application.Services.Pipeline;
-using CleanArchitecture.Example.Application.UseCases.Users.CreateUser;
+﻿using CleanArchitecture.Example.Application.UseCases.Users.CreateUser;
 using CleanArchitecture.Example.Domain.Entities;
+using CleanArchitecture.Services.Extended.FluentValidation;
 using CleanArchitecture.Services.Persistence;
 using FluentAssertions;
 using Moq;

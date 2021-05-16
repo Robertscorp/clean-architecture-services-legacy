@@ -1,6 +1,6 @@
-﻿using CleanArchitecture.Example.Application.Services.Pipeline;
-using CleanArchitecture.Example.Application.UseCases.People.GetGenders;
+﻿using CleanArchitecture.Example.Application.UseCases.People.GetGenders;
 using CleanArchitecture.Example.InterfaceAdapters.Controllers;
+using CleanArchitecture.Services.Extended.Pipeline;
 using CleanArchitecture.Services.Pipeline;
 using Moq;
 using System.Linq;

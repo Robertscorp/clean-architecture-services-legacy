@@ -7,12 +7,10 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="FluentValidation" Version="10.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.Example.Domain\CleanArchitecture.Example.Domain.csproj" />
-    <ProjectReference Include="..\CleanArchitecture.Services.Extended\CleanArchitecture.Services.Extended.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Services\CleanArchitecture.Services.csproj" />
   </ItemGroup>
 
 </Project>
