@@ -1,5 +1,5 @@
-﻿using CleanArchitecture.Example.Application.Services.Pipeline;
-using CleanArchitecture.Example.Application.UseCases.People.GetGenders;
+﻿using CleanArchitecture.Example.Application.UseCases.People.GetGenders;
+using CleanArchitecture.Services.Extended.Pipeline;
 using CleanArchitecture.Services.Pipeline;
 using System;
 using System.Linq;

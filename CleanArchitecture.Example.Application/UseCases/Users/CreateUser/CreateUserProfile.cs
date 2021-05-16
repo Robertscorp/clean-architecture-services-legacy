@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using CleanArchitecture.Example.Application.Infrastructure.Mapping;
 using CleanArchitecture.Example.Domain.Entities;
 using CleanArchitecture.Services.Entities;
+using CleanArchitecture.Services.Extended.AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using System;
 
