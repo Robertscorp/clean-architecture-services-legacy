@@ -13,6 +13,8 @@ namespace CleanArchitecture.Services.Persistence
 
         Task<EntityID> AddAsync<TEntity>(TEntity entity, CancellationToken cancellationToken) where TEntity : class;
 
+        Task<bool> ExistsAsync<TEntity>(EntityID entityID, CancellationToken cancellationToken) where TEntity : class;
+
         Task<TEntity> FindAsync<TEntity>(EntityID entityID, CancellationToken cancellationToken) where TEntity : class;
 
         Task<IQueryable<TEntity>> GetEntitiesAsync<TEntity>(CancellationToken cancellationToken) where TEntity : class;

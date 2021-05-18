@@ -88,7 +88,7 @@ namespace CleanArchitecture.Example.InterfaceAdapters.Tests.Unit.ViewModels.Gend
 
         [Fact]
         public async Task PresentEntityNotFoundAsync_NotImplemented_ThrowsNotImplementedException()
-            => _ = (await Record.ExceptionAsync(() => this.m_ViewModel.PresentEntityNotFoundAsync(new EntityID(), this.m_CancellationToken))).Should().BeOfType<NotImplementedException>();
+            => _ = (await Record.ExceptionAsync(() => this.m_ViewModel.PresentEntityNotFoundAsync(new Mock<EntityID>().Object, this.m_CancellationToken))).Should().BeOfType<NotImplementedException>();
 
         #endregion PresentEntityNotFoundAsync Tests
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleanArchitecture.Services.Internal;
+using System;
 
 namespace CleanArchitecture.Services.Entities
 {
@@ -10,7 +11,7 @@ namespace CleanArchitecture.Services.Entities
 
         protected StaticEntity(string name, long value)
         {
-            this.ID = new StaticEntityID(value);
+            this.ID = new InternalEntityID { Data = (InternalEntityIDData)Activator.CreateInstance(typeof(InternalEntityIDData<,>).MakeGenericType(this.GetType(), typeof(long)), value) };
             this.Name = name ?? throw new ArgumentNullException(nameof(name));
         }
 
@@ -37,7 +38,7 @@ namespace CleanArchitecture.Services.Entities
             => obj is StaticEntity _Enumeration && Equals(this.ID, _Enumeration.ID);
 
         private long GetEntityIDValue()
-            => ((StaticEntityID)this.ID).Value;
+            => ((InternalEntityIDData<long>)((InternalEntityID)this.ID).Data).Value;
 
         public override int GetHashCode()
             => this.ID.GetHashCode();

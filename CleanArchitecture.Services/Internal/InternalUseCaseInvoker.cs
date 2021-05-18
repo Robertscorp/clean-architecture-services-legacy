@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace CleanArchitecture.Services.Internal
 {
 
-    public abstract class InternalUseCaseInvoker
+    internal abstract class InternalUseCaseInvoker
     {
 
         #region - - - - - - Methods - - - - - -
@@ -19,7 +19,7 @@ namespace CleanArchitecture.Services.Internal
 
     }
 
-    public class InternalUseCaseInvoker<TPresenter, TRequest, TResponse, TValidationResult> : InternalUseCaseInvoker
+    internal class InternalUseCaseInvoker<TPresenter, TRequest, TResponse, TValidationResult> : InternalUseCaseInvoker
         where TPresenter : IPresenter<TResponse, TValidationResult>
         where TRequest : IUseCaseRequest<TResponse>
         where TValidationResult : IValidationResult

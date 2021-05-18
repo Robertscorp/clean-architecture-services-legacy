@@ -1,4 +1,5 @@
-using CleanArchitecture.Example.Application.Dtos;
+using CleanArchitecture.Example.Application.Services.Pipeline;
+using CleanArchitecture.Example.Framework.Persistence;
 using CleanArchitecture.Example.InterfaceAdapters.Controllers;
 using CleanArchitecture.Services.Entities;
 using CleanArchitecture.Services.Extended.FluentValidation;
@@ -9,13 +10,12 @@ using CleanArchitecture.Services.Pipeline;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Example.Framework.WebApi
@@ -42,12 +42,16 @@ namespace CleanArchitecture.Example.Framework.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             _ = services.AddAutoMapper(typeof(IPresenter<>).Assembly);
-            _ = services.AddControllers().AddJsonOptions(opts => opts.JsonSerializerOptions.Converters.Add(new EntityIDConverter()));
+            _ = services
+                    .AddControllers(opts => opts.ModelBinderProviders.Insert(0, new EntityIDBinderProvider()))
+                    .AddJsonOptions(opts => opts.JsonSerializerOptions.Converters.Add(new EntityIDConverter()));
+
+            _ = services.AddScoped(typeof(EntityIDValidator<>));
             _ = services.AddScoped(typeof(IUseCaseElement<,>), typeof(RequestValidatorUseCaseElement<,>));
             _ = services.AddScoped(typeof(IUseCaseElement<,>), typeof(BusinessRuleValidatorUseCaseElement<,>));
             _ = services.AddScoped(typeof(IUseCaseElement<,>), typeof(InteractorUseCaseElement<,>));
             _ = services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
-            _ = services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "CleanArchitecture.Example.Framework.WebApi", Version = "v1" }));
+            _ = services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Example Api", Version = "v1" }));
 
             _ = services.Scan(s => s.FromAssemblies(
                                         typeof(IUseCaseInvoker).Assembly,
@@ -65,7 +69,7 @@ namespace CleanArchitecture.Example.Framework.WebApi
                                     .AsSelf()
                                     .WithScopedLifetime());
 
-            _ = services.AddScoped<IPersistenceContext, TempPersistenceContext>();
+            _ = services.AddSingleton<IPersistenceContext, PersistenceContext>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -74,7 +78,7 @@ namespace CleanArchitecture.Example.Framework.WebApi
             {
                 _ = app.UseDeveloperExceptionPage();
                 _ = app.UseSwagger();
-                _ = app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CleanArchitecture.Example.Framework.WebApi v1"));
+                _ = app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Example Api v1"));
             }
 
             _ = app.UseHttpsRedirection();
@@ -87,27 +91,51 @@ namespace CleanArchitecture.Example.Framework.WebApi
 
     }
 
-    public class TempPersistenceContext : IPersistenceContext
+
+    public class EntityIDModelBinder : IModelBinder
     {
 
-        #region - - - - - - IPersistenceContext Implementation - - - - - -
+        #region - - - - - - IModelBinder Implementation - - - - - -
 
-        public Task<EntityID> AddAsync<TEntity>(TEntity entity, CancellationToken cancellationToken) where TEntity : class
-            => throw new NotImplementedException();
+        public Task BindModelAsync(ModelBindingContext bindingContext)
+        {
+            var _EntityID = default(EntityID);
+            var _Value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName).FirstValue;
 
-        public Task<TEntity> FindAsync<TEntity>(EntityID entityID, CancellationToken cancellationToken) where TEntity : class
-            => throw new NotImplementedException();
+            if (_Value.StartsWith(@""""))
+                _EntityID = EntityIDProvider.GetEntityIDWithValue(_Value);
 
-        public Task<IQueryable<TEntity>> GetEntitiesAsync<TEntity>(CancellationToken cancellationToken) where TEntity : class
-            => throw new NotImplementedException();
+            else if (long.TryParse(_Value, out var _Long))
+                _EntityID = EntityIDProvider.GetEntityIDWithValue(_Long);
 
-        public Task RemoveAsync<TEntity>(TEntity entity, CancellationToken cancellationToken) where TEntity : class
-            => throw new NotImplementedException();
+            else if (Guid.TryParse(_Value, out var _Guid))
+                _EntityID = EntityIDProvider.GetEntityIDWithValue(_Guid);
 
-        public Task<int> SaveChangesAsync(CancellationToken cancellationToken)
-            => throw new NotImplementedException();
+            bindingContext.Result = ModelBindingResult.Success(_EntityID);
+            return Task.CompletedTask;
+        }
 
-        #endregion IPersistenceContext Implementation
+        #endregion IModelBinder Implementation
+
+    }
+
+    public class EntityIDBinderProvider : IModelBinderProvider
+    {
+
+        #region - - - - - - Fields - - - - - -
+
+        private readonly IModelBinder m_Binder = new EntityIDModelBinder();
+
+        #endregion Fields
+
+        #region - - - - - - IModelBinderProvider Implementation - - - - - -
+
+        public IModelBinder GetBinder(ModelBinderProviderContext context)
+            => context.Metadata.ModelType == typeof(EntityID)
+                ? this.m_Binder
+                : null;
+
+        #endregion IModelBinderProvider Implementation
 
     }
 

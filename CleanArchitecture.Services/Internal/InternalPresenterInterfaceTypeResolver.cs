@@ -6,7 +6,7 @@ using System.Linq;
 namespace CleanArchitecture.Services.Internal
 {
 
-    public abstract class InternalPresenterInterfaceTypeResolver
+    internal abstract class InternalPresenterInterfaceTypeResolver
     {
 
         #region - - - - - - Methods - - - - - -
@@ -17,7 +17,7 @@ namespace CleanArchitecture.Services.Internal
 
     }
 
-    public class InternalPresenterInterfaceTypeResolver<TResponse, TValidationResult> : InternalPresenterInterfaceTypeResolver
+    internal class InternalPresenterInterfaceTypeResolver<TResponse, TValidationResult> : InternalPresenterInterfaceTypeResolver
         where TValidationResult : IValidationResult
     {
 
