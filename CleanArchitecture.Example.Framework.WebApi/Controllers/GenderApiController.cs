@@ -1,6 +1,7 @@
 ﻿using CleanArchitecture.Example.Application.UseCases.People.GetGenders;
 using CleanArchitecture.Example.InterfaceAdapters.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@ namespace CleanArchitecture.Example.Framework.WebApi.Controllers
         #region - - - - - - Constructors - - - - - -
 
         public GenderApiController(GenderController genderController)
-            => this.m_GenderController = genderController ?? throw new System.ArgumentNullException(nameof(genderController));
+            => this.m_GenderController = genderController ?? throw new ArgumentNullException(nameof(genderController));
 
         #endregion Constructors
 
