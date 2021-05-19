@@ -14,11 +14,11 @@ namespace CleanArchitecture.Example.Application.Infrastructure.Mapping
         {
             _ = this.CreateMap<Customer, CustomerDto>()
                     .ForMember(dest => dest.CustomerID, opts => opts.MapFrom(src => src.ID))
-                    .ForMember(dest => dest.EmailAddress, opts => opts.MapFrom(src => src.CustomerDetails.FirstName))
+                    .ForMember(dest => dest.EmailAddress, opts => opts.MapFrom(src => src.CustomerDetails.EmailAddress))
                     .ForMember(dest => dest.FirstName, opts => opts.MapFrom(src => src.CustomerDetails.FirstName))
                     .ForMember(dest => dest.GenderID, opts => opts.MapFrom(src => src.CustomerDetails.Gender.ID))
                     .ForMember(dest => dest.LastName, opts => opts.MapFrom(src => src.CustomerDetails.LastName))
-                    .ForMember(dest => dest.MobileNumber, opts => opts.MapFrom(src => src.CustomerDetails.FirstName));
+                    .ForMember(dest => dest.MobileNumber, opts => opts.MapFrom(src => src.CustomerDetails.MobileNumber));
 
             _ = this.CreateMap<Employee, UserDto>()
                     .ForMember(dest => dest.EmployeeID, opts => opts.MapFrom(src => src.ID))
