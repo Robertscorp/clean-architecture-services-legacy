@@ -19,8 +19,8 @@ namespace CleanArchitecture.Services.Extended.Tests.Unit.Presenters
         private Mock<IPresenter<TestEntity>> m_MockEntityPresenter = new Mock<IPresenter<TestEntity>>();
 
         private CancellationToken m_CancellationToken = new CancellationToken();
-        private EntityID m_EntityID = new TestEntityID();
         private TestEntity m_Entity;
+        private EntityID m_EntityID = new TestEntityID();
         private SingleEntityPresenter<TestEntity> m_SingleEntityPresenter;
 
         #endregion Fields
