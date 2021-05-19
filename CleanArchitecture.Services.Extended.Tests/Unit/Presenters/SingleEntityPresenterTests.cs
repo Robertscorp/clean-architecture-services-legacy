@@ -38,7 +38,7 @@ namespace CleanArchitecture.Services.Extended.Tests.Unit.Presenters
         #region - - - - - - PresentAsync Tests - - - - - -
 
         [Fact]
-        public async Task PresentAsync_SingleEntityFound_PresentsSingleEntityInNestedPresenter()
+        public async Task PresentAsync_SingleEntityFound_PresentsSingleEntityInWrappedPresenter()
         {
             // Arrange
             var _Entities = new[] { new TestEntity(), this.m_Entity, new TestEntity() }.AsQueryable();
@@ -52,7 +52,7 @@ namespace CleanArchitecture.Services.Extended.Tests.Unit.Presenters
         }
 
         [Fact]
-        public async Task PresentAsync_NoEntityFound_PresentsSingleEntityInNestedPresenter()
+        public async Task PresentAsync_NoEntityFound_PresentsNotFoundInWrappedPresenter()
         {
             // Arrange
             var _Entities = new[] { new TestEntity(), new TestEntity(), new TestEntity() }.AsQueryable();
