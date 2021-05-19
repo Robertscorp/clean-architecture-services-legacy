@@ -8,8 +8,8 @@ namespace CleanArchitecture.Example.Domain.Entities
 
         #region - - - - - - Fields - - - - - -
 
-        public static readonly EmployeeRole Admin = new EmployeeRole("Administrator", 1);
-        public static readonly EmployeeRole Mechanic = new EmployeeRole("Mechanic", 2);
+        public static readonly EmployeeRole Admin = new("Administrator", 1);
+        public static readonly EmployeeRole Mechanic = new("Mechanic", 2);
 
         #endregion Fields
 
