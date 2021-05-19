@@ -98,10 +98,10 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
 
             #region - - - - - - Fields - - - - - -
 
-            public static DayOfWeek Monday = new DayOfWeek("Monday", 1);
-            public static DayOfWeek Smunday = new DayOfWeek("Smunday", 8);
-            public static DayOfWeek Tuesday = new DayOfWeek("Tuesday", 2);
-            public static DayOfWeek Wednesday = new DayOfWeek("Wednesday", 3);
+            public static DayOfWeek Monday = new("Monday", 1);
+            public static DayOfWeek Smunday = new("Smunday", 8);
+            public static DayOfWeek Tuesday = new("Tuesday", 2);
+            public static DayOfWeek Wednesday = new("Wednesday", 3);
 
             #endregion Fields
 
@@ -125,7 +125,7 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
 
             #region - - - - - - Fields - - - - - -
 
-            public static NotStaticEntity StaticInstance = new NotStaticEntity();
+            public static NotStaticEntity StaticInstance = new();
 
             #endregion Fields
 

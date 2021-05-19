@@ -16,10 +16,10 @@ namespace CleanArchitecture.Example.InterfaceAdapters.Tests.Unit.Controllers
 
         #region - - - - - - Fields - - - - - -
 
-        private readonly CancellationToken m_CancellationToken = new CancellationToken();
+        private readonly CancellationToken m_CancellationToken = new();
         private readonly GenderController m_Controller;
 
-        private readonly Mock<IUseCaseInvoker> m_MockUseCaseInvoker = new Mock<IUseCaseInvoker>();
+        private readonly Mock<IUseCaseInvoker> m_MockUseCaseInvoker = new();
 
         #endregion Fields
 

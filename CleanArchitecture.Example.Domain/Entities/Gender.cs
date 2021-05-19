@@ -8,9 +8,9 @@ namespace CleanArchitecture.Example.Domain.Entities
 
         #region - - - - - - Fields - - - - - -
 
-        public static readonly Gender Female = new Gender("Female", 1);
-        public static readonly Gender Male = new Gender("Male", 2);
-        public static readonly Gender Mayonnaise = new Gender("Mayonnaise", 3); // The secret gender.
+        public static readonly Gender Female = new("Female", 1);
+        public static readonly Gender Male = new("Male", 2);
+        public static readonly Gender Mayonnaise = new("Mayonnaise", 3); // The secret gender.
 
         #endregion Fields
 

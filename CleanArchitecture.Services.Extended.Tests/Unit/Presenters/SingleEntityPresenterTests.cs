@@ -16,12 +16,12 @@ namespace CleanArchitecture.Services.Extended.Tests.Unit.Presenters
 
         #region - - - - - - Fields - - - - - -
 
-        private Mock<IPresenter<TestEntity>> m_MockEntityPresenter = new Mock<IPresenter<TestEntity>>();
+        private readonly Mock<IPresenter<TestEntity>> m_MockEntityPresenter = new();
 
-        private CancellationToken m_CancellationToken = new CancellationToken();
-        private TestEntity m_Entity;
-        private EntityID m_EntityID = new TestEntityID();
-        private SingleEntityPresenter<TestEntity> m_SingleEntityPresenter;
+        private readonly CancellationToken m_CancellationToken = new();
+        private readonly TestEntity m_Entity;
+        private readonly EntityID m_EntityID = new TestEntityID();
+        private readonly SingleEntityPresenter<TestEntity> m_SingleEntityPresenter;
 
         #endregion Fields
 

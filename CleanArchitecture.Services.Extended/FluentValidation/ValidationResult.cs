@@ -39,7 +39,7 @@ namespace CleanArchitecture.Services.Extended.FluentValidation
             => Failure(new[] { new FluentValidationFailure(null, failure) });
 
         public static ValidationResult Failure(IEnumerable<FluentValidationFailure> failures)
-            => new ValidationResult(failures);
+            => new(failures);
 
         private static void SetRuleSetsExecuted(ValidationResult validationResult, string[] value)
         {
@@ -59,7 +59,7 @@ namespace CleanArchitecture.Services.Extended.FluentValidation
         private static Action<FluentValidationResult, string[]> s_SetRuleSetsExecutedAction;
 
         public static ValidationResult Success()
-            => new ValidationResult();
+            => new();
 
         #endregion Methods
 

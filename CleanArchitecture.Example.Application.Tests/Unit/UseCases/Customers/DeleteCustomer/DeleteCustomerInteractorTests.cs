@@ -18,14 +18,14 @@ namespace CleanArchitecture.Example.Application.Tests.Unit.UseCases.Customers.De
 
         #region - - - - - - Fields - - - - - -
 
-        private readonly CancellationToken m_CancellationToken = new CancellationToken();
-        private readonly Customer m_ExistingCustomer = new Customer();
-        private readonly CustomerDto m_ExistingCustomerDto = new CustomerDto();
+        private readonly Mock<IPersistenceContext> m_MockPersistenceContext = new();
+        private readonly Mock<IPresenter<CustomerDto>> m_MockPresenter = new();
+
+        private readonly CancellationToken m_CancellationToken = new();
+        private readonly Customer m_ExistingCustomer = new();
+        private readonly CustomerDto m_ExistingCustomerDto = new();
         private readonly EntityID m_ExistingCustomerID = new Mock<EntityID>().Object;
         private readonly DeleteCustomerInteractor m_Interactor;
-
-        private readonly Mock<IPersistenceContext> m_MockPersistenceContext = new Mock<IPersistenceContext>();
-        private readonly Mock<IPresenter<CustomerDto>> m_MockPresenter = new Mock<IPresenter<CustomerDto>>();
 
         #endregion Fields
 
