@@ -3,7 +3,7 @@
 namespace CleanArchitecture.Services.Entities
 {
 
-    public abstract class StaticEntity : IComparable
+    public abstract class StaticEntity : IComparable, IEntity
     {
 
         #region - - - - - - Constructors - - - - - -
@@ -18,8 +18,6 @@ namespace CleanArchitecture.Services.Entities
 
         #region - - - - - - Properties - - - - - -
 
-        public EntityID ID { get; }
-
         public string Name { get; }
 
         #endregion Properties
@@ -30,6 +28,12 @@ namespace CleanArchitecture.Services.Entities
             => obj is StaticEntity _Enumeration ? this.GetEntityIDValue().CompareTo(_Enumeration.GetEntityIDValue()) : -1;
 
         #endregion IComparable Implementation
+
+        #region - - - - - - IEntity Implementation - - - - - -
+
+        public EntityID ID { get; }
+
+        #endregion IEntity Implementation
 
         #region - - - - - - Methods - - - - - -
 
