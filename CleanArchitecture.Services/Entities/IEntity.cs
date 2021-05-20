@@ -6,7 +6,7 @@
 
         #region - - - - - - Properties - - - - - -
 
-        public EntityID ID { get; set; }
+        public EntityID ID { get; }
 
         #endregion Properties
 

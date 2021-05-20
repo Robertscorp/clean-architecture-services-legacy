@@ -16,7 +16,7 @@ namespace CleanArchitecture.Example.Domain.Entities
 
         #region - - - - - - IEntity Implementation - - - - - -
 
-        public EntityID ID { get; set; }
+        public EntityID ID { get; }
 
         #endregion IEntity Implementation
 
