@@ -7,7 +7,7 @@ using System.Threading;
 namespace CleanArchitecture.Services.Extended.AutoMapper
 {
 
-    public class EntityIDConverter<TDestinationMember> : IValueConverter<EntityID, TDestinationMember> where TDestinationMember : class
+    public class EntityIDConverter<TDestinationMember> : IValueConverter<EntityID, TDestinationMember> where TDestinationMember : class, IEntity
     {
 
         #region - - - - - - Fields - - - - - -

@@ -120,7 +120,7 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
 
         }
 
-        private class NotStaticEntity
+        private class NotStaticEntity : IEntity
         {
 
             #region - - - - - - Fields - - - - - -
@@ -135,6 +135,11 @@ namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
 
             #endregion Constructors
 
+            #region - - - - - - IEntity Implementation - - - - - -
+
+            public EntityID ID { get; }
+
+            #endregion IEntity Implementation
         }
 
         private class TestEntityID : EntityID { }
