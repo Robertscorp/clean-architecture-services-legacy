@@ -12,22 +12,22 @@ namespace CleanArchitecture.Services.Infrastructure
 
         #region - - - - - - Fields - - - - - -
 
-        private static ConcurrentDictionary<Type, object[]> s_EntitiesByType;
+        private static ConcurrentDictionary<Type, IEntity[]> s_EntitiesByType;
 
         #endregion Fields
 
         #region - - - - - - Methods - - - - - -
 
-        public static TEntity Find<TEntity>(EntityID entityID) where TEntity : class
-            => (TEntity)GetEntitiesInternal<TEntity>()?.SingleOrDefault(e => Equals(((StaticEntity)e).ID, entityID));
+        public static TEntity Find<TEntity>(EntityID entityID) where TEntity : class, IEntity
+            => (TEntity)GetEntitiesInternal<TEntity>()?.SingleOrDefault(e => Equals(e.ID, entityID));
 
-        public static TEntity[] GetEntities<TEntity>() where TEntity : class
+        public static TEntity[] GetEntities<TEntity>() where TEntity : class, IEntity
             => (TEntity[])GetEntitiesInternal<TEntity>();
 
-        private static object[] GetEntitiesInternal<TEntity>() where TEntity : class
+        private static IEntity[] GetEntitiesInternal<TEntity>() where TEntity : class, IEntity
         {
             if (s_EntitiesByType == null)
-                _ = Interlocked.CompareExchange(ref s_EntitiesByType, new ConcurrentDictionary<Type, object[]>(), null);
+                _ = Interlocked.CompareExchange(ref s_EntitiesByType, new ConcurrentDictionary<Type, IEntity[]>(), null);
 
             if (!s_EntitiesByType.TryGetValue(typeof(TEntity), out var _StaticEntities))
                 _StaticEntities = s_EntitiesByType.GetOrAdd(

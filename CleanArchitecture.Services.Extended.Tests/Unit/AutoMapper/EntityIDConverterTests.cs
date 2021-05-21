@@ -15,26 +15,25 @@ namespace CleanArchitecture.Services.Extended.Tests.Unit.AutoMapper
 
         #region - - - - - - Convert - - - - - -
 
-        [Theory]
-        [InlineData(null)]
-        [InlineData("Expected")]
-        public void Convert_AnyRequest_GetsResultFromPersistenceContext(object expected)
+        [Fact]
+        public void Convert_AnyRequest_GetsResultFromPersistenceContext()
         {
             // Arrange
             var _EntityID = new Mock<EntityID>().Object;
+            var _Expected = new Mock<IEntity>().Object;
 
             var _MockPersistenceContext = new Mock<IPersistenceContext>();
             _ = _MockPersistenceContext
-                    .Setup(mock => mock.FindAsync<object>(_EntityID, It.IsAny<CancellationToken>()))
-                    .Returns(Task.FromResult(expected));
+                    .Setup(mock => mock.FindAsync<IEntity>(_EntityID, It.IsAny<CancellationToken>()))
+                    .Returns(Task.FromResult(_Expected));
 
-            var _Converter = new EntityIDConverter<object>(_MockPersistenceContext.Object);
+            var _Converter = new EntityIDConverter<IEntity>(_MockPersistenceContext.Object);
 
             // Act
             var _Actual = _Converter.Convert(_EntityID, null);
 
             // Assert
-            _ = _Actual.Should().Be(expected);
+            _ = _Actual.Should().Be(_Expected);
         }
 
         #endregion Convert
