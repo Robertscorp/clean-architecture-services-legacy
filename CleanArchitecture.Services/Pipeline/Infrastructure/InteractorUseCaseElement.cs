@@ -1,10 +1,9 @@
 ﻿using CleanArchitecture.Services.Entities;
-using CleanArchitecture.Services.Pipeline;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Services.Infrastructure
+namespace CleanArchitecture.Services.Pipeline.Infrastructure
 {
 
     public class InteractorUseCaseElement<TResponse, TValidationResult> : IUseCaseElement<TResponse, TValidationResult> where TValidationResult : IValidationResult

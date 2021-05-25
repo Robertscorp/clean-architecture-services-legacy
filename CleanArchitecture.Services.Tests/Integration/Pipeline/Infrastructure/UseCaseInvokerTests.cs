@@ -1,6 +1,6 @@
 ﻿using CleanArchitecture.Services.Entities;
-using CleanArchitecture.Services.Infrastructure;
 using CleanArchitecture.Services.Pipeline;
+using CleanArchitecture.Services.Pipeline.Infrastructure;
 using FluentAssertions;
 using Moq;
 using System;
@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CleanArchitecture.Services.Tests.Integration.Infrastructure
+namespace CleanArchitecture.Services.Tests.Integration.Pipeline.Infrastructure
 {
 
     public class UseCaseInvokerTests

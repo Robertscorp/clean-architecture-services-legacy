@@ -1,12 +1,11 @@
 ﻿using CleanArchitecture.Services.Entities;
-using CleanArchitecture.Services.Pipeline;
 using System;
 using System.Linq;
 
-namespace CleanArchitecture.Services.Internal
+namespace CleanArchitecture.Services.Pipeline.Infrastructure
 {
 
-    public abstract class InternalPresenterInterfaceTypeResolver
+    public abstract class PresenterInterfaceTypeResolver
     {
 
         #region - - - - - - Methods - - - - - -
@@ -17,7 +16,7 @@ namespace CleanArchitecture.Services.Internal
 
     }
 
-    public class InternalPresenterInterfaceTypeResolver<TResponse, TValidationResult> : InternalPresenterInterfaceTypeResolver
+    public class PresenterInterfaceTypeResolver<TResponse, TValidationResult> : PresenterInterfaceTypeResolver
         where TValidationResult : IValidationResult
     {
 

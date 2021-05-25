@@ -1,6 +1,6 @@
 ﻿using CleanArchitecture.Services.Entities;
-using CleanArchitecture.Services.Infrastructure;
 using CleanArchitecture.Services.Pipeline;
+using CleanArchitecture.Services.Pipeline.Infrastructure;
 using FluentAssertions;
 using Moq;
 using System;
@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
+namespace CleanArchitecture.Services.Tests.Unit.Pipeline.Infrastructure
 {
 
     public class RequestValidatorUseCaseElementTests
