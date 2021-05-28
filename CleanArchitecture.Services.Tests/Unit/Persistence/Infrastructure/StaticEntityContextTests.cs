@@ -1,9 +1,9 @@
 ﻿using CleanArchitecture.Services.Entities;
-using CleanArchitecture.Services.Infrastructure;
+using CleanArchitecture.Services.Persistence.Infrastructure;
 using FluentAssertions;
 using Xunit;
 
-namespace CleanArchitecture.Services.Tests.Unit.Infrastructure
+namespace CleanArchitecture.Services.Tests.Unit.Persistence.Infrastructure
 {
 
     public class StaticEntityContextTests

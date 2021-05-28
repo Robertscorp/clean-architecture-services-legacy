@@ -1,10 +1,12 @@
 ﻿using CleanArchitecture.Services.Entities;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 
-namespace CleanArchitecture.Services.Infrastructure
+namespace CleanArchitecture.Services.Persistence.Infrastructure
 {
 
     public static class StaticEntityContext
@@ -18,8 +20,8 @@ namespace CleanArchitecture.Services.Infrastructure
 
         #region - - - - - - Methods - - - - - -
 
-        public static TEntity Find<TEntity>(EntityID entityID) where TEntity : class, IEntity
-            => (TEntity)GetEntitiesInternal<TEntity>()?.SingleOrDefault(e => Equals(e.ID, entityID));
+        public static TEntity Find<TEntity>([DisallowNull] EntityID entityID, [DisallowNull] IEqualityComparer<EntityID> equalityComparer) where TEntity : class, IEntity
+            => (TEntity)GetEntitiesInternal<TEntity>()?.SingleOrDefault(e => equalityComparer.Equals(e.ID, entityID));
 
         public static TEntity[] GetEntities<TEntity>() where TEntity : class, IEntity
             => (TEntity[])GetEntitiesInternal<TEntity>();
