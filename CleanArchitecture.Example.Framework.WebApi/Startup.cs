@@ -1,6 +1,7 @@
 using CleanArchitecture.Example.Application.Dtos;
 using CleanArchitecture.Example.InterfaceAdapters.Controllers;
 using CleanArchitecture.Services.Entities;
+using CleanArchitecture.Services.Extended.EFCore;
 using CleanArchitecture.Services.Extended.FluentValidation;
 using CleanArchitecture.Services.Extended.Pipeline;
 using CleanArchitecture.Services.Infrastructure;
@@ -57,6 +58,8 @@ namespace CleanArchitecture.Example.Framework.WebApi
                                     .AddClasses(classes =>
                                         classes
                                             .Where(type => type.GetInterface(typeof(IUseCaseElement<,>).Name) == null)
+                                            .Where(type => type != typeof(PersistenceContext))
+                                            .Where(type => type != typeof(QueryableUnion<>))
                                             .Where(type => type != typeof(ValidationResult)))
                                     .AsImplementedInterfaces()
                                     .WithScopedLifetime());
