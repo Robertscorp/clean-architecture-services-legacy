@@ -6,6 +6,7 @@ using CleanArchitecture.Services.Extended.Pipeline;
 using CleanArchitecture.Services.Infrastructure;
 using CleanArchitecture.Services.Persistence;
 using CleanArchitecture.Services.Pipeline;
+using CleanArchitecture.Services.Pipeline.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
