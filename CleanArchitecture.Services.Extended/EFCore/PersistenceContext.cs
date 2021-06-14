@@ -41,18 +41,18 @@ namespace CleanArchitecture.Services.Extended.EFCore
 
     }
 
-    public class QueryableUnion<TEntity> : IQueryable<TEntity>, IOrderedQueryable<TEntity>
+    public class QueryableUnion<TElement> : IQueryable<TElement>, IQueryProvider, IOrderedQueryable<TElement>
     {
 
         #region - - - - - - Fields - - - - - -
 
-        private readonly IQueryable<TEntity>[] m_Queries;
+        private readonly (IQueryable<TElement> Query, ExpressionVisitor Visitor)[] m_QueriesWithVisitors;
 
         #endregion Fields
 
         #region - - - - - - Constructors - - - - - -
 
-        public QueryableUnion(params IQueryable<TEntity>[] queries)
+        public QueryableUnion(params IQueryable<TElement>[] queries)
         {
             if (queries is null)
                 throw new ArgumentNullException(nameof(queries));
@@ -60,7 +60,14 @@ namespace CleanArchitecture.Services.Extended.EFCore
             if (queries.Length < 2)
                 throw new ArgumentException("Must provide at least 2 queries to union.", nameof(queries));
 
-            this.m_Queries = queries;
+            this.Expression = Expression.Constant(this);
+            this.m_QueriesWithVisitors = queries.Select(q => (q, (ExpressionVisitor)new QueryableUnionVisitor(this, q))).ToArray();
+        }
+
+        private QueryableUnion(Expression expression, (IQueryable<TElement>, ExpressionVisitor)[] queriesWithVisitors)
+        {
+            this.Expression = expression;
+            this.m_QueriesWithVisitors = queriesWithVisitors;
         }
 
         #endregion Constructors
@@ -68,81 +75,55 @@ namespace CleanArchitecture.Services.Extended.EFCore
         #region - - - - - - IQueryable Implementation - - - - - -
 
         public Type ElementType
-            => this.m_Queries[0].ElementType;
+            => typeof(TElement);
 
-        public Expression Expression
-            => this.m_Queries[0].Expression;
+        public Expression Expression { get; }
 
         public IQueryProvider Provider
-            => new QueryableUnionQueryProvider(this.m_Queries);
+            => this;
 
-        public IEnumerator<TEntity> GetEnumerator()
-            => new QueryableUnionEnumerator(this.m_Queries);
+        public IEnumerator<TElement> GetEnumerator()
+            => new QueryableUnionEnumerator(this.m_QueriesWithVisitors.Select(qv => qv.Query).ToArray());
 
         IEnumerator IEnumerable.GetEnumerator()
-            => ((IQueryable<TEntity>)this).GetEnumerator();
+            => ((IQueryable<TElement>)this).GetEnumerator();
 
         #endregion IQueryable Implementation
 
+        #region - - - - - - IQueryProvider Implementation - - - - - -
+
+        public IQueryable CreateQuery(Expression expression)
+            => (IQueryable)Activator.CreateInstance(
+                typeof(QueryableUnion<>).MakeGenericType(expression.Type.GenericTypeArguments.First()),
+                this.m_QueriesWithVisitors.Select(qv => (qv.Query.Provider.CreateQuery(qv.Visitor.Visit(expression)), qv.Visitor)).ToArray());
+
+        public IQueryable<T> CreateQuery<T>(Expression expression)
+            => new QueryableUnion<T>(expression, this.m_QueriesWithVisitors.Select(qv => (qv.Query.Provider.CreateQuery<T>(qv.Visitor.Visit(expression)), qv.Visitor)).ToArray());
+
+
+        public object Execute(Expression expression)
+            => throw new NotImplementedException();
+
+        public TResult Execute<TResult>(Expression expression)
+            => throw new NotImplementedException();
+
+        #endregion IQueryProvider Implementation
+
         #region - - - - - - Nested Classes - - - - - -
 
-        private class QueryableUnionQueryProvider : IQueryProvider
+        private class QueryableUnionEnumerator : IEnumerator<TElement>
         {
 
             #region - - - - - - Fields - - - - - -
 
-            private readonly IQueryable<TEntity>[] m_Queries;
+            private readonly IEnumerator<IEnumerator<TElement>> m_EnumeratorEnumerator;
+            private readonly List<IEnumerator<TElement>> m_QueryEnumerators;
 
             #endregion Fields
 
             #region - - - - - - Constructors - - - - - -
 
-            public QueryableUnionQueryProvider(IQueryable<TEntity>[] queries)
-                => this.m_Queries = queries;
-
-            #endregion Constructors
-
-            #region - - - - - - IQueryProvider Implementation - - - - - -
-
-            public IQueryable CreateQuery(Expression expression)
-                => throw new NotImplementedException();
-
-            public IQueryable<TElement> CreateQuery<TElement>(Expression expression)
-                => new QueryableUnion<TElement>(
-                    this.m_Queries.Select(q =>
-                    {
-                        var _Expression = (MethodCallExpression)expression;
-                        var _QueryExpression = Expression.Call(
-                                                _Expression.Object,
-                                                _Expression.Method,
-                                                new[] { q.Expression }.Union(_Expression.Arguments.Skip(1)).ToArray());
-
-                        return q.Provider.CreateQuery<TElement>(_QueryExpression);
-                    }).ToArray());
-
-            public object Execute(Expression expression)
-                => throw new NotImplementedException();
-
-            public TResult Execute<TResult>(Expression expression)
-                => throw new NotImplementedException();
-
-            #endregion IQueryProvider Implementation
-
-        }
-
-        private class QueryableUnionEnumerator : IEnumerator<TEntity>
-        {
-
-            #region - - - - - - Fields - - - - - -
-
-            private readonly IEnumerator<IEnumerator<TEntity>> m_EnumeratorEnumerator;
-            private readonly List<IEnumerator<TEntity>> m_QueryEnumerators;
-
-            #endregion Fields
-
-            #region - - - - - - Constructors - - - - - -
-
-            public QueryableUnionEnumerator(IQueryable<TEntity>[] queries)
+            public QueryableUnionEnumerator(IQueryable<TElement>[] queries)
             {
                 this.m_QueryEnumerators = queries.Select(q => q.GetEnumerator()).ToList();
                 this.m_EnumeratorEnumerator = this.m_QueryEnumerators.GetEnumerator();
@@ -153,13 +134,13 @@ namespace CleanArchitecture.Services.Extended.EFCore
 
             #region - - - - - - IEnumerator Implementation - - - - - -
 
-            public TEntity Current
+            public TElement Current
                 => this.m_EnumeratorEnumerator.Current == null
                     ? default
                     : this.m_EnumeratorEnumerator.Current.Current;
 
             object IEnumerator.Current
-                => ((IEnumerator<TEntity>)this).Current;
+                => ((IEnumerator<TElement>)this).Current;
 
             public void Dispose()
             {
@@ -182,6 +163,37 @@ namespace CleanArchitecture.Services.Extended.EFCore
             }
 
             #endregion IEnumerator Implementation
+
+        }
+
+        private class QueryableUnionVisitor : ExpressionVisitor
+        {
+
+            #region - - - - - - Fields - - - - - -
+
+            private readonly IQueryable m_OriginalQuery;
+            private readonly IQueryable m_ReplacementQuery;
+
+            #endregion Fields
+
+            #region - - - - - - Constructors - - - - - -
+
+            public QueryableUnionVisitor(IQueryable originalQuery, IQueryable replacementQuery)
+            {
+                this.m_OriginalQuery = originalQuery;
+                this.m_ReplacementQuery = replacementQuery;
+            }
+
+            #endregion Constructors
+
+            #region - - - - - - Methods - - - - - -
+
+            protected override Expression VisitConstant(ConstantExpression node)
+                => Equals(node.Value, this.m_OriginalQuery)
+                    ? Expression.Constant(this.m_ReplacementQuery)
+                    : base.VisitConstant(node);
+
+            #endregion Methods
 
         }
 
