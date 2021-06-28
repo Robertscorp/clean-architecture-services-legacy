@@ -46,7 +46,8 @@ namespace CleanArchitecture.Services.Extended.EFCore
 
         #region - - - - - - Fields - - - - - -
 
-        private readonly (IQueryable<TElement> Query, ExpressionVisitor Visitor)[] m_QueriesWithVisitors;
+        private readonly IQueryable<TElement>[] m_Queries;
+        private readonly ReplacementVisitor m_ReplacementVisitor;
 
         #endregion Fields
 
@@ -61,13 +62,15 @@ namespace CleanArchitecture.Services.Extended.EFCore
                 throw new ArgumentException("Must provide at least 2 queries to union.", nameof(queries));
 
             this.Expression = Expression.Constant(this);
-            this.m_QueriesWithVisitors = queries.Select(q => (q, (ExpressionVisitor)new QueryableUnionVisitor(this, q))).ToArray();
+            this.m_Queries = queries.Select(q => new QueryWrapper<TElement>(q, this)).ToArray();
+            this.m_ReplacementVisitor = new ReplacementVisitor(this);
         }
 
-        private QueryableUnion(Expression expression, (IQueryable<TElement>, ExpressionVisitor)[] queriesWithVisitors)
+        private QueryableUnion(Expression expression, IQueryable<TElement>[] queries, ReplacementVisitor replacementVisitor)
         {
             this.Expression = expression;
-            this.m_QueriesWithVisitors = queriesWithVisitors;
+            this.m_Queries = queries;
+            this.m_ReplacementVisitor = replacementVisitor;
         }
 
         #endregion Constructors
@@ -83,7 +86,11 @@ namespace CleanArchitecture.Services.Extended.EFCore
             => this;
 
         public IEnumerator<TElement> GetEnumerator()
-            => new QueryableUnionEnumerator(this.m_QueriesWithVisitors.Select(qv => qv.Query).ToArray());
+        {
+            this.m_ReplacementVisitor.ReplacementQuery = this.m_Queries.SelectMany(q => q).AsQueryable();
+
+            return Expression.Lambda<Func<IQueryable<TElement>>>(this.m_ReplacementVisitor.Visit(this.Expression)).Compile().Invoke().GetEnumerator();
+        }
 
         IEnumerator IEnumerable.GetEnumerator()
             => ((IQueryable<TElement>)this).GetEnumerator();
@@ -95,11 +102,12 @@ namespace CleanArchitecture.Services.Extended.EFCore
         public IQueryable CreateQuery(Expression expression)
             => (IQueryable)Activator.CreateInstance(
                 typeof(QueryableUnion<>).MakeGenericType(expression.Type.GenericTypeArguments.First()),
-                this.m_QueriesWithVisitors.Select(qv => (qv.Query.Provider.CreateQuery(qv.Visitor.Visit(expression)), qv.Visitor)).ToArray());
+                expression,
+                this.m_Queries.Select(q => q.Provider.CreateQuery(expression)).ToArray(),
+                this.m_ReplacementVisitor);
 
         public IQueryable<T> CreateQuery<T>(Expression expression)
-            => new QueryableUnion<T>(expression, this.m_QueriesWithVisitors.Select(qv => (qv.Query.Provider.CreateQuery<T>(qv.Visitor.Visit(expression)), qv.Visitor)).ToArray());
-
+            => new QueryableUnion<T>(expression, this.m_Queries.Select(q => q.Provider.CreateQuery<T>(expression)).ToArray(), this.m_ReplacementVisitor);
 
         public object Execute(Expression expression)
             => throw new NotImplementedException();
@@ -198,6 +206,105 @@ namespace CleanArchitecture.Services.Extended.EFCore
         }
 
         #endregion Nested Classes
+
+    }
+
+    internal class QueryWrapper<TElement> : IQueryable<TElement>, IQueryProvider, IOrderedQueryable<TElement>
+    {
+
+        #region - - - - - - Fields - - - - - -
+
+        private readonly ExpressionVisitor m_ReplacementVisitor;
+
+        #endregion Fields
+
+        #region - - - - - - Constructors - - - - - -
+
+        public QueryWrapper(IQueryable<TElement> query, IQueryable<TElement> sourceQuery)
+        {
+            if (query is null)
+                throw new ArgumentNullException(nameof(query));
+
+            this.Expression = Expression.Constant(this);
+            this.m_ReplacementVisitor = new ReplacementVisitor(sourceQuery) { ReplacementQuery = query };
+        }
+
+        private QueryWrapper(Expression expression, ExpressionVisitor replacementVisitor)
+        {
+            this.Expression = replacementVisitor.Visit(expression);
+            this.m_ReplacementVisitor = replacementVisitor;
+        }
+
+        #endregion Constructors
+
+        #region - - - - - - IQueryable Implementation - - - - - -
+
+        public Type ElementType
+            => typeof(TElement);
+
+        public Expression Expression { get; }
+
+        public IQueryProvider Provider
+            => this;
+
+        public IEnumerator<TElement> GetEnumerator()
+            => Expression.Lambda<Func<IQueryable<TElement>>>(this.Expression).Compile().Invoke().GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator()
+            => ((IQueryable<TElement>)this).GetEnumerator();
+
+        #endregion IQueryable Implementation
+
+        #region - - - - - - IQueryProvider Implementation - - - - - -
+
+        public IQueryable CreateQuery(Expression expression)
+            => (IQueryable)Activator.CreateInstance(
+                typeof(QueryWrapper<>).MakeGenericType(expression.Type.GenericTypeArguments.First()),
+                expression, this.m_ReplacementVisitor);
+
+        public IQueryable<T> CreateQuery<T>(Expression expression)
+            => new QueryWrapper<T>(expression, this.m_ReplacementVisitor);
+
+        public object Execute(Expression expression)
+            => throw new NotImplementedException();
+
+        public TResult Execute<TResult>(Expression expression)
+            => throw new NotImplementedException();
+
+        #endregion IQueryProvider Implementation
+
+    }
+
+    internal class ReplacementVisitor : ExpressionVisitor
+    {
+
+        #region - - - - - - Fields - - - - - -
+
+        private readonly IQueryable m_OriginalQuery;
+
+        #endregion Fields
+
+        #region - - - - - - Constructors - - - - - -
+
+        public ReplacementVisitor(IQueryable originalQuery)
+            => this.m_OriginalQuery = originalQuery;
+
+        #endregion Constructors
+
+        #region - - - - - - Properties - - - - - -
+
+        public IQueryable ReplacementQuery { get; set; }
+
+        #endregion Properties
+
+        #region - - - - - - Methods - - - - - -
+
+        protected override Expression VisitConstant(ConstantExpression node)
+            => Equals(node.Value, this.m_OriginalQuery)
+                ? Expression.Constant(this.ReplacementQuery)
+                : base.VisitConstant(node);
+
+        #endregion Methods
 
     }
 
